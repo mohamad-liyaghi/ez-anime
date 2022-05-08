@@ -1,0 +1,41 @@
+{%extends 'base/base.html'%}
+{%load static%}
+
+
+{%block body%}
+<section class="normal-breadcrumb set-bg" data-setbg="{% static 'img/normal-breadcrumb.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="normal__breadcrumb__text">
+                    <h2>{%block page_title%}{%endblock%}</h2>
+                    <p>Welcome to the official Anime website.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="signup spad">
+    <div class="container">
+        <div class="row">
+            <div class="login__form">
+                {%block main%}
+                {%endblock main%}
+            </div>
+            <div class="col-lg-6">
+                <div class="login__social__links">
+                    <h3>Register with</h3>
+                    <ul>
+                        <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a>
+                        </li>
+                        <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
+                        <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+        </div>  
+    </div>
+</section>
+{%endblock body%}

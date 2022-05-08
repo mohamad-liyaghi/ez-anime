@@ -1,4 +1,4 @@
-{%extends 'base/base.html' %}
+{%extends 'account/base-account.html'%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +9,8 @@
     {%block page_title%}Register page{%endblock%}
 </head>
 <body>
-    {%block body%}
-    <div class="login__form">
+    {%block main%}
         <h3>Register</h3>
-        
         <form method="post">{%csrf_token%}
             <div class="input__item">
                 <input type="text" name="username" placeholder="User name">
@@ -41,20 +39,7 @@
             
             <button type="submit" class="site-btn">Register</button>
         </form>
-        <h5>Already have an account? <a href="#">Login!</a></h5>
-    </div>
-    <div class="col-lg-6">
-        <div class="login__social__links">
-            <h3>Register with</h3>
-            <ul>
-                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a>
-                </li>
-                <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
-                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li>
-            </ul>
-        </div>
-    </div>
-    
+        <h5>Already have an account? <a href="{%url 'account:login'%}">Login!</a></h5>
     {%endblock%}
 </body>
 </html>
