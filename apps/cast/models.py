@@ -15,6 +15,7 @@ class Cast(models.Model):
     last_name = models.CharField(max_length=20)
     biography = models.TextField()
     birthday  = models.DateField()
+    genre = models.ForeignKey(Genre,on_delete=models.CASCADE)
     # works = models.ForeignKey()
     role = models.CharField(max_length=1, choices=role.choices,default=role.actor)
     
