@@ -13,3 +13,4 @@ venv/
 !.vscode/extensions.json 
 .history
 img/
+Movie-images/
