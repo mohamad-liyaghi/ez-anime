@@ -21,5 +21,7 @@ urlpatterns = [
     path("account/",include("apps.account.urls")),
     path("cast/",include("apps.cast.urls")),
     path("",include("apps.movie.urls")),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
+
 ]
 

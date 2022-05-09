@@ -1,0 +1,38 @@
+{%extends 'cast/base-cast.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Add genre{%endblock%}</title>
+   {%block page_title%}Add category{%endblock%}
+</head>
+<body>
+    {%block main%}
+    <section class="signup spad">
+        <div class="container">
+            <div class="row">
+                <div class="login__form">
+                    <form method="post">{%csrf_token%}
+                        <div class="input__item">
+                            <input name="title" type="text" placeholder="Title" maxlength="20" style="width: 10cm;">
+                        </div>
+                        <button type="submit" class="site-btn">Submit</button>
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <div class="login__social__links">
+                        <h3>Add category</h3>
+                        <h3>You can enter your category name and then press the submit button</h3>
+                    </div>
+                </div>
+            </div>  
+        </div>
+            </div>
+
+        </div>
+    
+    {%endblock%}
+</body>
+</html>
