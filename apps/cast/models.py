@@ -3,7 +3,7 @@ from django.db import models
 
 class Genre(models.Model):
     title = models.CharField(max_length=20)
-    films_related = models.ForeignKey(to="movie.Film",on_delete=models.CASCADE,blank=True,null=True)
+    films_related = models.ForeignKey(to="movie.Film",on_delete=models.CASCADE,related_name="movie_genre",blank=True,null=True)
     def __str__(self) :
         return self.title
 

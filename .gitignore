@@ -3,7 +3,7 @@
 *.pyc
 __pycache__
 db.sqlite3
-
+migrations/
 venv/ 
 .env 
 .vscode/* 
@@ -14,3 +14,4 @@ venv/
 .history
 img/
 Movie-images/
+actors/

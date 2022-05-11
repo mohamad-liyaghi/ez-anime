@@ -11,10 +11,12 @@ class Film(models.Model):
     seoson_story = models.ManyToManyField("seoson",blank=True)
     imdb = models.PositiveIntegerField(default=0)
     seosons = models.PositiveIntegerField(default=0)
-    actors= models.ManyToManyField(Cast,related_name='%(class)s_actor')
-    director= models.ManyToManyField(Cast,related_name='%(class)s_director')
+    actors= models.ManyToManyField(Cast,related_name='%(class)s_actor',blank=True)
+    director= models.ManyToManyField(Cast,related_name='%(class)s_director',blank=True)
+    genre= models.ManyToManyField(Genre,related_name='%(class)s_genre',blank=True)
     ratings = GenericRelation(Rating, related_query_name='rate')
     release_date = models.DateField()
+    token = models.CharField(max_length=15,unique=True,null=True,blank=True)
     def __str__(self) :
         return self.name
 
