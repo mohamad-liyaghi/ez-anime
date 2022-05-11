@@ -38,19 +38,30 @@ class AddCast(FormView):
         genres = Genre.objects.filter(title=genre_field)
         director_cast = Cast.objects.filter(full_name=director_field)
         for film in film_model:
+            global genre
             for genre in genres:
-                print(genre)
                 film.genre.add(genre)
+                genre.films_related.add(film)
             for director in director_cast:
                 film.director.add(director)
+                director.works.add(film)
+                director.genre.add(genre)
             for actor_1 in Cast.objects.filter(full_name=actor1_field):
                 film.actors.add(actor_1)
+                actor_1.works.add(film)
+                actor_1.genre.add(genre)
             for actor_2 in Cast.objects.filter(full_name=actor2_field):
                 film.actors.add(actor_2)
+                actor_2.works.add(film)
+                actor_2.genre.add(genre)
             for actor_3 in Cast.objects.filter(full_name=actor3_field):
                 film.actors.add(actor_3)
+                actor_3.works.add(film)
+                actor_3.genre.add(genre)
             for actor_4 in Cast.objects.filter(full_name=actor4_field):
                 film.actors.add(actor_4)
+                actor_4.works.add(film)
+                actor_4.genre.add(genre)
       
     def form_invalid(self,form):
         print(form.errors)
