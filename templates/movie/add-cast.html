@@ -1,0 +1,52 @@
+{%extends 'movie/base-movie.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Add Cast{%endblock%}</title>
+   {%block page_title%}Add other info{%endblock%}
+</head>
+<body>
+    {%block main%}
+    <section class="signup spad">
+        <div class="container">
+            <div class="row">
+                <div class="login__form">
+                    <form method="post" enctype="multipart/form-data">{%csrf_token%}
+                        <h3>cast info</h3>
+                        <div class="input__item">
+                            <input name="director_field" type="text" placeholder="Director" maxlength="20">
+                        </div>
+                        <h3>main actors</h3>
+                        <div class="input__item">
+                            <input name="actor1_field" type="text" placeholder="Actor 1">
+                        </div>
+                        <div class="input__item">
+                            <input name="actor2_field" type="text" placeholder="Actor 2">
+                        </div>                        
+                    </div>
+                <div class="col-lg-6">
+                    <div class="login__social__links">
+                        <h3>other actors</h3>
+                        <div class="input__item">
+                            <input name="actor3_field" type="text" placeholder="Actor 3" style="width: 10cm; height: 1.3cm;">
+                        </div><br>
+                        <div class="input__item">
+                            <input name="actor4_field" type="text" placeholder="Actor 4" style="width: 10cm; height: 1.3cm;">
+                        </div><br>
+                        <div class="input__item">
+                            <input name="genre" type="text" placeholder="genre" style="width: 10cm; height: 1.3cm;">
+                        </div><br>
+                        <br><button type="submit" class="site-btn">Submit</button>
+                    </div>
+                </form>
+                </div>
+            </div>  
+        </div>
+            </div>
+        </div>
+    {%endblock%}
+</body>
+</html>
