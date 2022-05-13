@@ -1,6 +1,6 @@
 from django import forms 
 from django.forms import ModelForm
-from .models import Film
+from .models import Film, season
 
 class MovieForm(ModelForm):
     class Meta:
@@ -25,4 +25,7 @@ class CastForm(forms.Form):
 
 
 
-
+class AddSeason(ModelForm):
+    class Meta:
+        model = season
+        fields = "season_number", "for_film", "story"

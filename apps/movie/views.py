@@ -6,7 +6,7 @@ import uuid
 
 from cast.models import Cast,Genre
 from movie.models import Film
-from .forms import MovieForm, CastForm, SeriesForm
+from .forms import MovieForm, CastForm, SeriesForm, AddSeason
 
 # Create your views here.
 class AddMovie(FormView):
@@ -79,4 +79,18 @@ class AddCast(FormView):
     def form_invalid(self,form):
         print(form.errors)
 
+
+class AddSeason(FormView):
+    template_name = "movie/add-season.html"
+    form_class = AddSeason
+    @transaction.atomic
+    def form_valid(self, form):
+        form = form.save()
+        film_model = Film.objects.filter(token=self.kwargs['token'])
+        for film in film_model:
+            form.for_film.add(film) 
+            film.seoson_story.add(form)
+    def form_invalid(self, form):
+        print(form.errors)
+        
 
