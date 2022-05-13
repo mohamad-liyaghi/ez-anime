@@ -9,7 +9,12 @@ class MovieForm(ModelForm):
                 "genre",
                 "release_date",
                 "token")
-
+class SeriesForm(ModelForm):
+    class Meta:
+        model  = Film
+        fields = (
+            "picture","name","intro","imdb","seosons","release_date","token"
+        )
 class CastForm(forms.Form):
     director_field = forms.CharField(required=False)
     actor1_field = forms.CharField(required=False)
@@ -17,3 +22,7 @@ class CastForm(forms.Form):
     actor3_field = forms.CharField(required=False)
     actor4_field = forms.CharField(required=False)
     genre = forms.CharField(required=False)
+
+
+
+
