@@ -1,17 +1,20 @@
 from django.shortcuts import redirect
 from django.views.generic import FormView
 from django.db import transaction
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 
-from cast.models import Cast,Genre
+from cast.models import Cast, Genre
 from movie.models import Film
 from .forms import MovieForm, CastForm, SeriesForm, AddSeason
 
 # Create your views here.
-class AddMovie(FormView):
+
+
+class AddMovie(LoginRequiredMixin, FormView):
     template_name = "movie/add-movie.html"
     form_class = MovieForm
+
     @transaction.atomic
     def form_valid(self, form):
         form = self.form_class(self.request.POST, self.request.FILES)
@@ -20,21 +23,30 @@ class AddMovie(FormView):
         form.save()
         return redirect("movie:add-cast", token=form.token)
 
-    def form_invalid(self,form):
-        print(form.errors)
-
-class AddSeries(FormView):
-    template_name = "movie/add-series.html"
-    form_class = SeriesForm
-    @transaction.atomic
-    def form_valid(self, form):
-        form = self.form_class(self.request.POST, self.request.FILES)
-        form = form.save(commit=False)
-        form.token = uuid.uuid4().hex.upper()[0:15]
-        form.save()
-        return redirect("movie:add-cast", token=form.token)
     def form_invalid(self, form):
         print(form.errors)
+
+
+class AddSeries(LoginRequiredMixin, FormView):
+    template_name = "movie/add-series.html"
+    form_class = SeriesForm
+
+    @transaction.atomic
+    def form_valid(self, form):
+        form = self.form_class(self.request.POST, self.request.FILES)
+        form = form.save(commit=False)
+        form.token = uuid.uuid4().hex.upper()[0:15]
+        form.save()
+        return redirect("movie:add-cast", token=form.token)
+
+    def form_invalid(self, form):
+        print(form.errors)
+
+
+def AddActor(full_name, film):
+    for actor in Cast.objects.filter(full_name=full_name):
+        film.actors.add(actor)
+        actor.works.add(film)
 
 class AddCast(FormView):
     template_name = "movie/add-cast.html"
@@ -51,46 +63,33 @@ class AddCast(FormView):
         genres = Genre.objects.filter(title=genre_field)
         director_cast = Cast.objects.filter(full_name=director_field)
         for film in film_model:
-            global genre
-            for genre in genres:
-                film.genre.add(genre)
-                genre.films_related.add(film)
+            global movie_genre
+            for movie_genre in genres:
+                film.genre.add(movie_genre)
+                movie_genre.films_related.add(film)
+            AddActor(actor1_field,film)
+            AddActor(actor2_field,film)
+            AddActor(actor3_field,film)
+            AddActor(actor4_field,film)
             for director in director_cast:
                 film.director.add(director)
                 director.works.add(film)
-                director.genre.add(genre)
-            for actor_1 in Cast.objects.filter(full_name=actor1_field):
-                film.actors.add(actor_1)
-                actor_1.works.add(film)
-                actor_1.genre.add(genre)
-            for actor_2 in Cast.objects.filter(full_name=actor2_field):
-                film.actors.add(actor_2)
-                actor_2.works.add(film)
-                actor_2.genre.add(genre)
-            for actor_3 in Cast.objects.filter(full_name=actor3_field):
-                film.actors.add(actor_3)
-                actor_3.works.add(film)
-                actor_3.genre.add(genre)
-            for actor_4 in Cast.objects.filter(full_name=actor4_field):
-                film.actors.add(actor_4)
-                actor_4.works.add(film)
-                actor_4.genre.add(genre)
-      
+            
+        
     def form_invalid(self,form):
         print(form.errors)
 
-
-class AddSeason(FormView):
+class AddSeason(LoginRequiredMixin, FormView):
     template_name = "movie/add-season.html"
     form_class = AddSeason
+
     @transaction.atomic
     def form_valid(self, form):
         form = form.save()
         film_model = Film.objects.filter(token=self.kwargs['token'])
         for film in film_model:
-            form.for_film.add(film) 
+            form.for_film.add(film)
             film.seoson_story.add(form)
+
     def form_invalid(self, form):
         print(form.errors)
-        
-

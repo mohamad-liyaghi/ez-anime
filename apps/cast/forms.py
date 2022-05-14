@@ -10,5 +10,5 @@ class GenreForm(ModelForm):
 class CastForm(ModelForm):
     class Meta:
         model = Cast
-        fields = ("avatar","full_name","biography","birthday","genre","works","role")
+        fields = ("avatar","full_name","biography","birthday","works","role")
 

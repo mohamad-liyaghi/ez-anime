@@ -15,7 +15,6 @@ class Cast(models.Model):
     full_name = models.CharField(max_length=50,null=True)
     biography = models.TextField()
     birthday  = models.DateField()
-    genre = models.ManyToManyField(Genre,blank=True)
     works =models.ManyToManyField(to="movie.Film",blank=True)
     role = models.CharField(max_length=1, choices=role.choices,default=role.actor)
     def __str__(self):
