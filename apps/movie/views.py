@@ -1,5 +1,5 @@
-from django.shortcuts import redirect
-from django.views.generic import FormView
+from django.shortcuts import redirect, render
+from django.views.generic import FormView, ListView
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
@@ -10,6 +10,11 @@ from .forms import MovieForm, CastForm, SeriesForm, AddSeason
 
 # Create your views here.
 
+def HomePage(request):
+    films = Film.objects.all()
+    genre = Genre.objects.all()
+    return render(request,"base/home.html",{"films" : films,"genres" : genre})
+    
 
 class AddMovie(LoginRequiredMixin, FormView):
     template_name = "movie/add-movie.html"
@@ -75,14 +80,12 @@ class AddCast(FormView):
                 film.director.add(director)
                 director.works.add(film)
             
-        
     def form_invalid(self,form):
         print(form.errors)
 
 class AddSeason(LoginRequiredMixin, FormView):
     template_name = "movie/add-season.html"
     form_class = AddSeason
-
     @transaction.atomic
     def form_valid(self, form):
         form = form.save()

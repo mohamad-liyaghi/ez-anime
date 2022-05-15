@@ -767,7 +767,7 @@ ol {
 }
 
 .product__sidebar__view__item {
-	height: 190px;
+	height: 70px;
 	position: relative;
 	border-radius: 5px;
 	margin-bottom: 20px;
@@ -781,7 +781,7 @@ ol {
 	padding: 2px 12px;
 	border-radius: 4px;
 	position: absolute;
-	left: 10px;
+	right: 10px;
 	top: 10px;
 }
 
@@ -793,7 +793,7 @@ ol {
 	padding: 2px 10px;
 	border-radius: 4px;
 	position: absolute;
-	right: 10px;
+	left: 10px;
 	top: 10px;
 }
 

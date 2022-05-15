@@ -1,0 +1,94 @@
+{%extends 'base/base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Home page{%endblock%}</title>
+</head>
+<body>
+    {%block body%}
+        <section class="product spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="trending__product">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <div class="section-title">
+                                        <h4>Recently added</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <div class="btn__all">
+                                        <a href="#" class="primary-btn">View All <span class="arrow_right"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {%for film in films %}
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <div class="product__item">
+                                            
+                                            <div class="product__item__pic">
+                                                <img src="{{film.picture.url}}" alt="na">
+                                                <div class="ep">18 / 18</div>
+                                                <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                            </div>
+                                            <div class="product__item__text">
+                                                <ul>
+                                                    <li>Active</li>
+                                                    <li>Movie</li>
+                                                </ul>
+                                                <h5><a href="#">{{film.name}}</a></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="product__sidebar">
+                            <div class="product__sidebar__view">
+                                <div class="section-title">
+                                    <h5>Genres</h5>
+                                </div>
+                                {%for genre in genres%}
+                                    <div class="filter__gallery">
+                                        <div class="product__sidebar__view__item">
+                                        <div class="view">{{genre.title}}</div>
+                                        <div class="ep">Movies: {{genre.films_related.count}}</div>
+                                        </div>
+                                    </div>
+                                {%endfor%}
+                </div>
+            </div>
+        </div>
+        <div class="product__sidebar__comment">
+            <div class="section-title">
+                <h5>Top rated</h5>
+            </div>
+            {%for film in films %}
+                <div class="product__sidebar__comment__item">
+                    <div class="product__sidebar__comment__item__text">
+                        <ul>
+                            <li>Active</li>
+                            <li>Movie</li>
+                        </ul>
+                        <h5><a href="#">{{film.name}}</a></h5>
+                        <span>{{film.ratings.count}}</span>
+                    </div>
+                </div>
+            {%endfor%}
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
+    {%endblock%}
+</body>
+</html>
