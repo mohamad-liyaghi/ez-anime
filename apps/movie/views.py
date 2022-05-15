@@ -1,5 +1,5 @@
-from django.shortcuts import redirect, render
-from django.views.generic import FormView, ListView
+from django.shortcuts import redirect, render, get_object_or_404
+from django.views.generic import FormView, DetailView
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
@@ -14,7 +14,14 @@ def HomePage(request):
     films = Film.objects.all()
     genre = Genre.objects.all()
     return render(request,"base/home.html",{"films" : films,"genres" : genre})
-    
+
+class FilmDetail(DetailView):
+    template_name = "base/movie-detail.html"
+    def get_object(self, *args, **kwargs):
+        object = get_object_or_404(Film,token=self.kwargs['token'])
+        return object
+
+        
 
 class AddMovie(LoginRequiredMixin, FormView):
     template_name = "movie/add-movie.html"
