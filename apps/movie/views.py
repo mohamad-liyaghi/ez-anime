@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 
 from cast.models import Cast, Genre
-from movie.models import Film
+from movie.models import Film, season
 from .forms import MovieForm, CastForm, SeriesForm, AddSeason
 
 # Create your views here.
@@ -21,7 +21,12 @@ class FilmDetail(DetailView):
         object = get_object_or_404(Film,token=self.kwargs['token'])
         return object
 
-        
+class SeasonDetail(DetailView):
+    template_name = "movie/season-detail.html"
+    def get_object(self, *args, **kwargs):
+        object = get_object_or_404(season,token=self.kwargs['token'])
+        return object
+
 
 class AddMovie(LoginRequiredMixin, FormView):
     template_name = "movie/add-movie.html"
@@ -95,7 +100,9 @@ class AddSeason(LoginRequiredMixin, FormView):
     form_class = AddSeason
     @transaction.atomic
     def form_valid(self, form):
-        form = form.save()
+        form = form.save(commit=False)
+        form.token= token=uuid.uuid4().hex.upper()[0:10]
+        form.save()
         film_model = Film.objects.filter(token=self.kwargs['token'])
         for film in film_model:
             form.for_film.add(film)

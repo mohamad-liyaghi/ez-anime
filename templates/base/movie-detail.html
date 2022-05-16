@@ -47,12 +47,12 @@
                                             </ul>
                                         </div>
                                 </div>
-                                <div class="anime__details__btn">
-                                    <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
-                                    <a href="#" class="watch-btn"><span>Watch Now</span> <i
-                                        class="fa fa-angle-right"></i></a>
+                                {%if request.user.is_authenticated%}
+                                    <div class="anime__details__btn">
+                                        <a href="{%url 'movie:add-season' object.token%}" class="follow-btn">Add Season</a>
+                                        <a href="{%url 'movie:add-cast' object.token%}" class="follow-btn">Add cast</a>                                    </div>
                                     </div>
-                                </div>
+                                {%endif%}
                             </div>
                         </div>
                 </div>
@@ -64,11 +64,11 @@
                             <div class="section-title">
                                 <h5>Seasons</h5>
                             </div>
-                                {%for seoson in object.seoson_story.all%}
+                                {%for seaoson in object.seoson_story.all%}
                                     <div class="anime__review__item">
                                         <div class="anime__review__item__text">
-                                            <h6>{{seoson.season_number}} | {{object.name}}</h6>
-                                            <p>{{seoson.story}}</p>
+                                            <a href="{%url 'movie:season-detail' seaoson.token %}"><h6>{{seaoson.season_number}} | {{object.name}}</h6></a>
+                                            <p>{{seaoson.story | truncatewords:15}}</p>
                                         </div>
                                     </div>
                                 {%endfor%}
