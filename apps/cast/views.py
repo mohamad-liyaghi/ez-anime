@@ -10,7 +10,7 @@ class AddGenre(LoginRequiredMixin,FormView):
     form_class = GenreForm
     def form_valid(self, form):
         form.save()
-        return redirect ("cast:add-genre")
+        return redirect ("movie:home")
     def form_invalid(self, form):
         return redirect ("cast:add-genre")        
 
@@ -21,7 +21,7 @@ class AddCast(FormView):
     def form_valid(self, form):
         form = self.form_class(self.request.POST, self.request.FILES)
         form.save()
-        return redirect ("cast:add-cast")  
+        return redirect ("movie:home")
     def form_invalid(self, form):
         return redirect ("cast:add-cast")  
     

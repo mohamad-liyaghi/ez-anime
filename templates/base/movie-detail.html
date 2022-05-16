@@ -59,11 +59,11 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
                         <div class="anime__details__review">
+                            {%if object.seosons == 0%}
+                            {%else%}
                             <div class="section-title">
                                 <h5>Seasons</h5>
                             </div>
-                            {%if object.seosons == 0%}
-                            {%else%}
                                 {%for seoson in object.seoson_story.all%}
                                     <div class="anime__review__item">
                                         <div class="anime__review__item__text">

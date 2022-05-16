@@ -11,7 +11,7 @@ from .forms import MovieForm, CastForm, SeriesForm, AddSeason
 # Create your views here.
 
 def HomePage(request):
-    films = Film.objects.all()
+    films = Film.objects.all().order_by('-ratings__average')
     genre = Genre.objects.all()
     return render(request,"base/home.html",{"films" : films,"genres" : genre})
 
@@ -86,7 +86,7 @@ class AddCast(FormView):
             for director in director_cast:
                 film.director.add(director)
                 director.works.add(film)
-            
+        return redirect('movie:add-seoson')
     def form_invalid(self,form):
         print(form.errors)
 
@@ -100,6 +100,6 @@ class AddSeason(LoginRequiredMixin, FormView):
         for film in film_model:
             form.for_film.add(film)
             film.seoson_story.add(form)
-
+        return redirect('movie:home')
     def form_invalid(self, form):
         print(form.errors)

@@ -10,7 +10,7 @@ from .mixins import NotAuthenticatedMixin
 class Login(NotAuthenticatedMixin,LoginView):
     template_name = "account/login-user.html"
     def get_success_url(self):
-        return reverse_lazy('account:login')
+        return reverse_lazy('movie:home')
 
 
 def Logout(request):
@@ -18,14 +18,14 @@ def Logout(request):
 	    logout(request)
 	    return redirect('account:login')
     else:
-        return redirect('account:login')
+        return redirect('movie:home')
 
 class Register(NotAuthenticatedMixin,CreateView):
     form_class = RegisterForm
     template_name = 'account/register-user.html'
     def form_valid(self, form):
         form.save()
-        return  redirect('account:login')
+        return  redirect('movie:home')
     def form_invalid(self, form):
         print(form.errors)
         return redirect("account:register")

@@ -19,6 +19,8 @@ class Film(models.Model):
     token = models.CharField(max_length=15,unique=True,null=True,blank=True)
     def __str__(self) :
         return self.name
+    
+        
 
 class season(models.Model):
     season_number = models.PositiveIntegerField(default=1)
