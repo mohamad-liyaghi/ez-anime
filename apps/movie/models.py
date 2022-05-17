@@ -30,3 +30,5 @@ class season(models.Model):
     def __str__(self) -> str:
         return f'{self.season_number} | {self.for_film.first()}'
 
+
+

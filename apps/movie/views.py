@@ -46,7 +46,7 @@ class AddMovie(LoginRequiredMixin, FormView):
 
 class UpdateMovie(LoginRequiredMixin,UpdateView):
     template_name = "movie/update-movie.html"
-    fields = "__all__"
+    fields = fields = "picture","name","intro","imdb","release_date","token"
     success_url ="/"
     def get_object(self):
         return get_object_or_404(Film, token=self.kwargs['token'])
@@ -72,7 +72,7 @@ class AddSeries(LoginRequiredMixin, FormView):
 
 class UpdateSeries(LoginRequiredMixin,UpdateView):
     template_name = "movie/update-series.html"
-    fields = "__all__"
+    fields = "picture","name","intro","imdb","seosons","release_date","token"
     success_url = "/"
     def get_object(self):
         return get_object_or_404(Film, token=self.kwargs['token'])
