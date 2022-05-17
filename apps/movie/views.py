@@ -91,7 +91,7 @@ class AddCast(FormView):
             for director in director_cast:
                 film.director.add(director)
                 director.works.add(film)
-        return redirect('movie:add-seoson')
+        return redirect('movie:add-season', token=self.kwargs['token'])
     def form_invalid(self,form):
         print(form.errors)
 
