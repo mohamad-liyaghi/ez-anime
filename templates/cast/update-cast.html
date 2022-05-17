@@ -1,0 +1,49 @@
+{%extends 'cast/base-cast.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Update cast{%endblock%}</title>
+   {%block page_title%}Update Cast{%endblock%}
+</head>
+<body>
+    {%block main%}
+    <form method="post" enctype="multipart/form-data">{%csrf_token%}
+    <section class="signup spad">
+        <div class="container">
+            <div class="row">
+                <div class="login__form">
+                        <div class="input__item">
+                            <input name="full_name" type="text" placeholder="Full Name" value="{{form.full_name.value}}" maxlength="20">
+                        </div><br>
+                        {{form.role}}
+                </div>
+                <div class="col-lg-6">
+                    <div class="login__social__links">
+                        {{form.avatar}}<br><br>
+                        <div class="input__item">
+                            <input name="biography" type="text" placeholder="Short biography" value="{{form.biography.value}}">
+                        </div>
+                        <div class="input__item">
+                            <input name="birthday" type="text" placeholder="birthday date" value="{{form.birthday.value}}" >
+                        </div>
+                        <br><button type="submit" class="site-btn">Submit</button>
+                    </div>
+                
+                </div>
+            </div>  
+        </div>
+            </div>
+
+        </div>
+    </form>
+    <style>
+        input{
+            width: 10cm; height: 1.5cm;
+        }
+    </style>
+    {%endblock%}
+</body>
+</html>

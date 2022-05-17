@@ -27,6 +27,9 @@
                         {%for work in object.works.all %}
                             <a href="{%url 'movie:film-detail' work.token%}">{{work}} | </a>
                         {%endfor%}
+                        {%if request.user.is_authenticated%}
+                            <a href="{%url 'cast:update-cast' object.token%}" class="site-btn">Update</a>
+                        {%endif%}
                         
                     </div>
                 </div>

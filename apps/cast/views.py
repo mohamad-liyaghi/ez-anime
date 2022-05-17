@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from django.views.generic import FormView, DetailView
+from django.views.generic import FormView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 import uuid
@@ -23,7 +23,7 @@ class AddGenre(LoginRequiredMixin,FormView):
         return redirect ("cast:add-genre")        
 
 
-class AddCast(FormView):
+class AddCast(LoginRequiredMixin, FormView):
     template_name = "cast/add-cast.html"
     form_class = CastForm
     def form_valid(self, form):
@@ -31,8 +31,14 @@ class AddCast(FormView):
         form = form.save(commit=False)
         form.token = uuid.uuid4().hex.upper()[0:10]
         form.save()
-
         return redirect ("movie:home")
     def form_invalid(self, form):
         return redirect ("cast:add-cast")  
     
+class UpdateCast(LoginRequiredMixin,UpdateView):
+    template_name = "cast/update-cast.html"
+    fields = "__all__"
+    success_url ="/"
+    def get_object(self):
+        return get_object_or_404(Cast, token=self.kwargs['token'])
+        
