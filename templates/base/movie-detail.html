@@ -81,9 +81,8 @@
                                 <h5>Actors</h5>
                             </div>
                             {%for actor in object.actors.all %}
-
                                 <div class="product__sidebar__view__item set-bg">
-                                    <h5><a href="#">{{actor.full_name}}</a></h5>
+                                    <h5><a href="{%url 'cast:profile' actor.token %}">{{actor.full_name}}</a></h5>
                                 </div>
                             {%endfor%}
                         </div>

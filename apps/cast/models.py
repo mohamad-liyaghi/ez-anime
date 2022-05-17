@@ -17,6 +17,7 @@ class Cast(models.Model):
     birthday  = models.DateField()
     works =models.ManyToManyField(to="movie.Film",blank=True)
     role = models.CharField(max_length=1, choices=role.choices,default=role.actor)
+    token = models.CharField(max_length=10,blank=True)
     def __str__(self):
         return self.full_name
         
