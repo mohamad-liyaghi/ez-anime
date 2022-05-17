@@ -49,6 +49,12 @@
                                 </div>
                                 {%if request.user.is_authenticated%}
                                     <div class="anime__details__btn">
+                                        {{object.seoson}}
+                                        {%if object.seosons == 0%}
+                                            <a href="{%url 'movie:update-movie' object.token%}" class="follow-btn">Update Movie</a>
+                                        {%else%}
+                                        <a href="{%url 'movie:update-series' object.token%}" class="follow-btn">Update Series</a>
+                                        {%endif%}
                                         <a href="{%url 'movie:add-season' object.token%}" class="follow-btn">Add Season</a>
                                         <a href="{%url 'movie:add-cast' object.token%}" class="follow-btn">Add cast</a>                                    </div>
                                     </div>

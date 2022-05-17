@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from django.views.generic import FormView, DetailView
+from django.views.generic import FormView, DetailView, UpdateView
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
@@ -44,6 +44,16 @@ class AddMovie(LoginRequiredMixin, FormView):
         print(form.errors)
 
 
+class UpdateMovie(LoginRequiredMixin,UpdateView):
+    template_name = "movie/update-movie.html"
+    fields = "__all__"
+    success_url ="/"
+    def get_object(self):
+        return get_object_or_404(Film, token=self.kwargs['token'])
+    def form_invalid(self,form):
+        print(form.errors)
+        
+
 class AddSeries(LoginRequiredMixin, FormView):
     template_name = "movie/add-series.html"
     form_class = SeriesForm
@@ -60,12 +70,22 @@ class AddSeries(LoginRequiredMixin, FormView):
         print(form.errors)
 
 
+class UpdateSeries(LoginRequiredMixin,UpdateView):
+    template_name = "movie/update-series.html"
+    fields = "__all__"
+    success_url = "/"
+    def get_object(self):
+        return get_object_or_404(Film, token=self.kwargs['token'])
+        
+    def form_invalid(self,form):
+        print(form.errors)
+
 def AddActor(full_name, film):
     for actor in Cast.objects.filter(full_name=full_name):
         film.actors.add(actor)
         actor.works.add(film)
 
-class AddCast(FormView):
+class AddFilmCast(FormView):
     template_name = "movie/add-cast.html"
     form_class = CastForm
     @transaction.atomic
@@ -94,6 +114,7 @@ class AddCast(FormView):
         return redirect('movie:add-season', token=self.kwargs['token'])
     def form_invalid(self,form):
         print(form.errors)
+
 
 class AddSeason(LoginRequiredMixin, FormView):
     template_name = "movie/add-season.html"

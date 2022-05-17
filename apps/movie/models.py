@@ -10,7 +10,7 @@ class Film(models.Model):
     intro = models.TextField()
     seoson_story = models.ManyToManyField("season",blank=True)
     imdb = models.PositiveIntegerField(default=0)
-    seosons = models.PositiveIntegerField(default=0)
+    seosons = models.PositiveIntegerField(default=0,blank=True)
     actors= models.ManyToManyField(Cast,related_name='%(class)s_actor',blank=True)
     director= models.ManyToManyField(Cast,related_name='%(class)s_director',blank=True)
     genre= models.ManyToManyField(Genre,related_name='%(class)s_genre',blank=True)
