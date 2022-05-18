@@ -21,9 +21,6 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="btn__all">
-                                        <a href="#" class="primary-btn">View All <span class="arrow_right"></span></a>
-                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -33,7 +30,7 @@
                                             
                                             <div class="product__item__pic">
                                                 <img src="{{film.picture.url}}" alt="na">
-                                                <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                                                <div class="comment"><i class="fa fa-star"></i> {{film.imdb}}/10</div>
                                                 <div class="view"><i class="fa fa-eye"></i> {{film.ratings.count}}</div>
                                             </div>
                                             <div class="product__item__text">
@@ -58,7 +55,7 @@
                                 {%for genre in genres%}
                                     <div class="filter__gallery">
                                         <div class="product__sidebar__view__item">
-                                        <div class="view">{{genre.title}}</div>
+                                        <div class="view"><a href="{%url 'movie:filter-genre' genre.title%}">{{genre.title}}</a></div>
                                         <div class="ep">Movies: {{genre.films_related.count}}</div>
                                         </div>
                                     </div>
@@ -78,7 +75,7 @@
                             <li>Movie</li>
                         </ul>
                         <h5><a href="{%url 'movie:film-detail' film.token%}">{{film.name}}</a></h5>
-                        <span>{{film.ratings.count}} People rated</span>
+                        <span>{{film.ratings.count}} person rated</span>
                     </div>
                 </div>
             {%endfor%}

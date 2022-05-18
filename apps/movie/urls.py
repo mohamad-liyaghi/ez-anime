@@ -2,7 +2,7 @@ from django.urls import path
 from movie.views import (HomePage, 
     AddMovie, UpdateMovie,
      AddFilmCast,UpdateSeries,
-      AddSeries, AddSeason,
+      AddSeries, AddSeason, FilterGenre,
        FilmDetail, SeasonDetail,SearchFilm)
 
 app_name = "movie"
@@ -18,4 +18,6 @@ urlpatterns = [
     path("add-cast/<str:token>/",AddFilmCast.as_view(),name="add-cast"),
     path("add-season/<str:token>/",AddSeason.as_view(),name="add-season"),
     path("search/<str:name>/",SearchFilm.as_view(),name="search-film"),
+    path("filter-genre/<str:genre>/",FilterGenre.as_view(),name="filter-genre"),
 ]
+

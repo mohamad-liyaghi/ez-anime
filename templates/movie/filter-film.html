@@ -1,0 +1,56 @@
+{%extends 'base/base.html'%}
+{% load ratings %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>{%block title%}Filter page{%endblock%}</title>
+</head>
+<body>
+    {%block body%}
+    <section class="anime-details spad">
+        <div class="container">
+            <div class="anime__details__content">
+                <div class="row">
+                        <div class="col-lg-8 col-md-8">
+                            <div class="anime__details__review">
+                                <div class="section-title">
+                                    <h5>Result:</h5>
+                                </div>
+                                {%if not object_list%}
+                                <div class="anime__review__item">
+                                    <div class="anime__review__item__text">
+                                        <h6>No result found</h6>
+                                    </div>
+                                </div>
+                                {%else%}
+                                {%for film in object_list%}
+                                <h3>{{film.count}}1</h3>
+                                    {%if film.count == 0%}
+                                        <h3>No result found</h3>
+                                    {%else%}
+                                        <div class="anime__review__item">
+                                            <div class="anime__review__item__pic">
+                                                <img src="{{film.picture.url}}" alt="">
+                                            </div>
+                                            <div class="anime__review__item__text">
+                                                <a href="{%url 'movie:film-detail' film.token%}"><h6>{{film.name}}</h6></a>
+                                                <a href="{%url 'movie:film-detail' film.token%}"><p>{{film.intro | truncatewords:15}}...</p></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {%endif%}
+                                {%endfor%}
+                                {%endif%}
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {%endblock%}
+</body>
+</html>

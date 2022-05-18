@@ -150,3 +150,9 @@ class SearchFilm(ListView):
     template_name = 'base/search-result.html'
     def get_queryset(self):
         return Film.objects.filter(name__icontains=self.kwargs['name'])
+
+class FilterGenre(ListView):
+    template_name = 'movie/filter-film.html'
+    def get_queryset(self):
+        print(self.kwargs['genre'])
+        return Film.objects.filter(genre__title__in= [self.kwargs['genre']])

@@ -17,10 +17,22 @@
                                 <li><a href="#">Pages <span class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
                                         <li><a href="#">Categories</a></li>
-                                        <li><a href="{%url 'account:login'%}">Login</a></li>
+                                        {%if request.user.is_authenticated%}
+                                            <li><a href="{%url 'account:logout'%}">logout</a></li>
+                                        {%else%}
+                                            <li><a href="{%url 'account:login'%}">Login</a></li>
+                                        {%endif%}
                                     </ul>
                                 </li>
-                                <li><a href="#">Contacts</a></li>
+                                {%if request.user.is_authenticated%}
+                                    <li><a href="#">Add <span class="arrow_carrot-down"></span></a>
+                                        <ul class="dropdown">
+                                            <li><a href="{%url 'movie:add-movie'%}">Movie</a></li>
+                                            <li><a href="{%url 'movie:add-series'%}">Series</a></li>
+                                                
+                                        </ul>
+                                    </li>
+                                {%endif%}
                                 {%if request.user.is_authenticated%}
                                     <li><a href="{%url 'account:logout'%}">logout</a></li>
                                 {%else%}
