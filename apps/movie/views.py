@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from django.views.generic import FormView, DetailView, UpdateView
+from django.views.generic import FormView, DetailView, UpdateView, ListView
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
@@ -131,3 +131,22 @@ class AddSeason(LoginRequiredMixin, FormView):
         return redirect('movie:home')
     def form_invalid(self, form):
         print(form.errors)
+
+
+def search_film(request):
+	if request.method == "POST":
+		searched = request.POST['search_field']
+		film = Film.objects.filter(name__contains=searched)	
+		return render(request, 
+		'base/search-result.html', 
+		{'searched':searched,
+		'film':film})
+	else:
+		return render(request, 
+		'base/search-result.html', 
+		{})
+
+class SearchFilm(ListView):
+    template_name = 'base/search-result.html'
+    def get_queryset(self):
+        return Film.objects.filter(name__icontains=self.kwargs['name'])

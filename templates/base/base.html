@@ -47,9 +47,25 @@
       <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
             <div class="search-close-switch"><i class="icon_close"></i></div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
+                <input type="text" id="search-input" placeholder="Search here...">
+                <button type="submit" class="site-btn" onclick="getInputValue()">Search</button>
+                <script>
+                    function getInputValue(){
+                        var domain = `${window.location.protocol}//${window.location.host}/`
+                        var inputVal = document.getElementById("search-input").value;
+                        window.location = `${domain}search/${inputVal}/`;
+                    }
+                </script>
+                <style>
+                    #search-input {
+                        width: 500px;
+                        font-size: 40px;
+                        border: none;
+                        border-bottom: 2px solid #333;
+                        background: 0 0;
+                        color: #999;
+                    }
+                </style>
         </div>
     </div>
 
