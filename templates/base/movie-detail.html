@@ -26,7 +26,7 @@
                             <div class="anime__details__text">
                                 <div class="anime__details__title">
                                     <h3>{{object.name}}</h3>
-                                    <span>A film by {%for director in object.director.all %}{{director}},{%endfor%} </span>
+                                    <span>A film by {%for director in object.director.all %}{{director}}, {%endfor%} </span>
                                 </div>
                                 <div class="anime__details__rating">
                                     {% ratings object %}
@@ -88,7 +88,7 @@
                             </div>
                             {%for actor in object.actors.all %}
                                 <div class="product__sidebar__view__item set-bg">
-                                    <h5><a href="{%url 'cast:profile' actor.token %}">{{actor.full_name}}</a></h5>
+                                    <h5><a href="{%url 'cast:profile' actor.token %}">{{actor.full_name}} </a></h5>
                                 </div>
                             {%endfor%}
                         </div>

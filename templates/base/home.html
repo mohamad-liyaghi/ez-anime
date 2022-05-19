@@ -55,7 +55,7 @@
                                 {%for genre in genres%}
                                     <div class="filter__gallery">
                                         <div class="product__sidebar__view__item">
-                                        <div class="view"><a href="{%url 'movie:filter-genre' genre.title%}">{{genre.title}}</a></div>
+                                        <div class="view"><a style="color: white;" href="{%url 'movie:filter-genre' genre.title%}">{{genre.title}}</a></div>
                                         <div class="ep">Movies: {{genre.films_related.count}}</div>
                                         </div>
                                     </div>
