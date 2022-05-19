@@ -36,7 +36,11 @@
                                             <div class="product__item__text">
                                                 <ul>
                                                     <li>Active</li>
-                                                    <li>Movie</li>
+                                                    {%if film.seosons == 0%}
+                                                        <li>Movie</li>
+                                                    {%else%}
+                                                        <li>Series</li>
+                                                    {%endif%}
                                                 </ul>
                                                 <h5><a href="{%url 'movie:film-detail' film.token%}">{{film.name}}</a></h5>
                                             </div>
@@ -70,10 +74,6 @@
             {%for film in films %}
                 <div class="product__sidebar__comment__item">
                     <div class="product__sidebar__comment__item__text">
-                        <ul>
-                            <li>Active</li>
-                            <li>Movie</li>
-                        </ul>
                         <h5><a href="{%url 'movie:film-detail' film.token%}">{{film.name}}</a></h5>
                         <span>{{film.ratings.count}} person rated</span>
                     </div>

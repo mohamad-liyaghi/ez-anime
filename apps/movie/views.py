@@ -12,7 +12,7 @@ from .forms import MovieForm, CastForm, SeriesForm, AddSeason
 
 def HomePage(request):
     films = Film.objects.all().order_by('-ratings__average')
-    genre = Genre.objects.all().order_by("-films_related")
+    genre = Genre.objects.all()
     return render(request,"base/home.html",{"films" : films,"genres" : genre})
 
 class FilmDetail(DetailView):
