@@ -156,3 +156,10 @@ class FilterGenre(ListView):
     def get_queryset(self):
         print(self.kwargs['genre'])
         return Film.objects.filter(genre__title__in= [self.kwargs['genre']])
+
+
+def handler404(request, exception=None):
+    return render(request, "base/errors/404.html", {})
+
+def handler500(request, exception=None):
+    return render(request, "base/errors/500.html", {})

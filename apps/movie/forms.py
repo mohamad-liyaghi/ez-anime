@@ -1,6 +1,6 @@
 from django import forms 
 from django.forms import ModelForm
-from .models import Film, season
+from movie.models import Film, season
 
 class MovieForm(ModelForm):
     class Meta:

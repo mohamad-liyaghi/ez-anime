@@ -24,9 +24,9 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = 'django-insecure-s=ij1mks%qytj61yz5ai2pr*2-my!*+&q(8_d9kvv9bi-#n&ii'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = "account:login"
 LOGOUT_REDIRECT_URL = "account:login" 
