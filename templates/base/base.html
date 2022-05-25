@@ -43,13 +43,7 @@
             <div class="search-close-switch"><i class="icon_close"></i></div>
                 <input type="text" id="search-input" placeholder="Search here...">
                 <button type="submit" class="site-btn" onclick="getInputValue()">Search</button>
-                <script>
-                    function getInputValue(){
-                        var domain = `${window.location.protocol}//${window.location.host}/`
-                        var inputVal = document.getElementById("search-input").value;
-                        window.location = `${domain}search/${inputVal}/`;
-                    }
-                </script>
+                <script src="{% static 'js/search.js' %}"></script>
                 <style>
                     #search-input {
                         width: 500px;
