@@ -23,6 +23,7 @@ urlpatterns = [
     path("account/",include("apps.account.urls")),
     path("cast/",include("apps.cast.urls")),
     path("",include("apps.movie.urls")),
+    path("api/v1/",include("apps.movie.api.urls")),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
