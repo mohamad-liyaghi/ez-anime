@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, GenericAPIView
 from rest_framework.response import Response
 
-from .serializers import TopFilmSerializer, MovieDetailSerializer
+from .serializers import TopFilmSerializer, MovieDetailSerializer, SeriesDetailSerializer
 from movie.models import Film
 
 
@@ -39,10 +39,28 @@ class TopRatedMovies(ListAPIView):
 def MovieDetail(request, id):
 
     '''
-        This route shows some extra info about movie, such as story, actors...
+        This route shows some extra info about selected movie, such as story, actors...
     '''
 
     object = get_object_or_404(Film,Q(name=id)| Q(token= id))
-    serializer = MovieDetailSerializer(object)
-    return Response(serializer.data)
-        
+    if object.seosons == 0:
+        serializer = MovieDetailSerializer(object)
+        return Response(serializer.data)
+    else:
+        return Response("The item you have selected is not a movie, please return to api/v1/series-detail/<id or name>/")
+
+
+
+@api_view(['GET'])
+def SeriesDetail(request, id):
+
+    '''
+        This route shows some extra info about selected series such as  seasons, intro...
+    '''
+
+    object = get_object_or_404(Film,Q(name=id)| Q(token= id))
+    if object.seosons != 0:
+        serializer = SeriesDetailSerializer(object)
+        return Response(serializer.data)
+    else:
+        return Response("The item you've selected is a movie, please return to /api/v1/movie-detail/<id or token>/")

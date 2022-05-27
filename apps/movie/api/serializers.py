@@ -1,3 +1,4 @@
+from django.urls import include
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
@@ -15,7 +16,7 @@ class TopFilmSerializer(serializers.ModelSerializer):
         model = Film
         fields = ["name","imdb","genre","release_date","token"]
 
-class MovieDetailSerializer(serializers.ModelSerializer):
+class MovieDetailSerializer(TopFilmSerializer):
     '''
         Film detail serializer
     '''
@@ -26,4 +27,16 @@ class MovieDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Film
-        fields = ["name","imdb","actors","director","genre","release_date","intro"]
+        fields = TopFilmSerializer.Meta.fields +  ["actors","director","intro"]
+
+
+class SeriesDetailSerializer(MovieDetailSerializer):
+    '''
+        Series detail serializer
+    '''
+    
+    seoson_story = serializers.StringRelatedField(read_only=True, many=True)
+    class Meta:
+        model = Film
+        fields = MovieDetailSerializer.Meta.fields +  ["seosons", "seoson_story"]
+        
