@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, GenericAPIView
 from rest_framework.response import Response
 
-from .serializers import TopFilmSerializer, MovieDetailSerializer, SeriesDetailSerializer
+from .serializers import TopFilmSerializer, MovieDetailSerializer, SeriesDetailSerializer, ItemListSerializer
 from movie.models import Film
 
 
@@ -33,6 +33,24 @@ class TopRatedMovies(ListAPIView):
     def get_queryset(self):
         object = Film.objects.all().order_by("-ratings__average")[:10]
         return object
+
+
+class SeriesApiPage(ListAPIView):
+    '''
+        a list of all available series in database
+    '''
+    allowed_methods = ('GET',)
+    serializer_class = ItemListSerializer
+    queryset = Film.objects.filter(~Q(seosons=0))
+
+
+class MovieApiPage(ListAPIView):
+    '''
+        a list of all available movies in database
+    '''
+    allowed_methods = ('GET',)
+    serializer_class = ItemListSerializer
+    queryset = Film.objects.filter(Q(seosons=0))
 
 
 @api_view(['GET'])

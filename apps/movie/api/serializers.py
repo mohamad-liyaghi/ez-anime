@@ -16,6 +16,20 @@ class TopFilmSerializer(serializers.ModelSerializer):
         model = Film
         fields = ["name","imdb","genre","release_date","token"]
 
+
+class ItemListSerializer(TopFilmSerializer):
+    '''
+        Item list serializer
+    '''
+    
+    genre = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = Film
+        fields = TopFilmSerializer.Meta.fields + ["seosons"]
+
+
+
 class MovieDetailSerializer(TopFilmSerializer):
     '''
         Film detail serializer
