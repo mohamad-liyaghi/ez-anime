@@ -11,17 +11,30 @@ from .forms import MovieForm, CastForm, SeriesForm, AddSeason
 # Create your views here.
 
 def HomePage(request):
+    '''
+        Home page includes List of recent movies, genres and top rated item
+    '''
     films = Film.objects.all().order_by('-ratings__average')
     genre = Genre.objects.all()
     return render(request,"base/home.html",{"films" : films,"genres" : genre})
 
 class FilmDetail(DetailView):
+    '''
+        Film detail shows extra info about the object such as seasons, actors ...
+    '''
     template_name = "base/movie-detail.html"
     def get_object(self, *args, **kwargs):
         object = get_object_or_404(Film,token=self.kwargs['token'])
+        ip_address = self.request.user.ip_address
+        print(object.views.all())
+        if ip_address not in object.views.all():
+            object.views.add(ip_address)
         return object
 
 class SeasonDetail(DetailView):
+    '''
+        Season detail shows extra info about a series season
+    '''
     template_name = "movie/season-detail.html"
     def get_object(self, *args, **kwargs):
         object = get_object_or_404(season,token=self.kwargs['token'])
@@ -29,6 +42,9 @@ class SeasonDetail(DetailView):
 
 
 class AddMovie(LoginRequiredMixin, FormView):
+    '''
+        This class let admins to add items
+    '''
     template_name = "movie/add-movie.html"
     form_class = MovieForm
 
@@ -45,6 +61,9 @@ class AddMovie(LoginRequiredMixin, FormView):
 
 
 class UpdateMovie(LoginRequiredMixin,UpdateView):
+    '''
+        This item let admins to update movies
+    '''
     template_name = "movie/update-movie.html"
     fields = fields = "picture","name","intro","imdb","release_date","token"
     success_url ="/"
@@ -55,6 +74,9 @@ class UpdateMovie(LoginRequiredMixin,UpdateView):
         
 
 class AddSeries(LoginRequiredMixin, FormView):
+    '''
+        This page let admins to add series
+    '''
     template_name = "movie/add-series.html"
     form_class = SeriesForm
 
@@ -71,6 +93,9 @@ class AddSeries(LoginRequiredMixin, FormView):
 
 
 class UpdateSeries(LoginRequiredMixin,UpdateView):
+    '''
+        This page let admins to update series
+    '''
     template_name = "movie/update-series.html"
     fields = "picture","name","intro","imdb","seosons","release_date","token"
     success_url = "/"
@@ -81,11 +106,17 @@ class UpdateSeries(LoginRequiredMixin,UpdateView):
         print(form.errors)
 
 def AddActor(full_name, film):
+    '''
+        This func is for AddFilmCast class, admins can add director and actors to the movies
+    '''
     for actor in Cast.objects.filter(full_name=full_name):
         film.actors.add(actor)
         actor.works.add(film)
 
 class AddFilmCast(FormView):
+    '''
+        Admins can add extra Actors/directors to the series they have created
+    '''
     template_name = "movie/add-cast.html"
     form_class = CastForm
     @transaction.atomic
@@ -117,6 +148,9 @@ class AddFilmCast(FormView):
 
 
 class AddSeason(LoginRequiredMixin, FormView):
+    '''
+        Add seasons for series they've created
+    '''
     template_name = "movie/add-season.html"
     form_class = AddSeason
     @transaction.atomic
@@ -134,6 +168,7 @@ class AddSeason(LoginRequiredMixin, FormView):
 
 
 def search_film(request):
+    #Search film func
 	if request.method == "POST":
 		searched = request.POST['search_field']
 		film = Film.objects.filter(name__contains=searched)	
@@ -147,11 +182,17 @@ def search_film(request):
 		{})
 
 class SearchFilm(ListView):
+    '''
+        Result of items that user searched for
+    '''
     template_name = 'base/search-result.html'
     def get_queryset(self):
         return Film.objects.filter(name__icontains=self.kwargs['name'])
 
 class FilterGenre(ListView):
+    '''
+        Filter movies by genre
+    '''
     template_name = 'movie/filter-film.html'
     def get_queryset(self):
         print(self.kwargs['genre'])
@@ -159,7 +200,13 @@ class FilterGenre(ListView):
 
 
 def handler404(request, exception=None):
+    '''
+        404 page
+    '''
     return render(request, "base/errors/404.html", {})
 
 def handler500(request, exception=None):
+    '''
+        500 error page
+    '''
     return render(request, "base/errors/500.html", {})

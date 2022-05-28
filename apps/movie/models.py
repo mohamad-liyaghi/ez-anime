@@ -17,6 +17,7 @@ class Film(models.Model):
     ratings = GenericRelation(Rating, related_query_name='rate')
     release_date = models.DateField()
     token = models.CharField(max_length=15,unique=True,null=True,blank=True)
+    views = models.ManyToManyField("View", blank=True)
     def __str__(self) :
         return self.name
     
@@ -31,4 +32,7 @@ class season(models.Model):
         return f'{self.season_number} | {self.for_film.first()}'
 
 
-
+class View(models.Model):
+    user_ip = models.GenericIPAddressField()
+    def __str__(self) -> str:
+        return self.user_ip
