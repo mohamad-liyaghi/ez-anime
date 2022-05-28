@@ -19,7 +19,10 @@ class AvailableApiViews(APIView):
         api_list = [
             {"Available api list" : "/api/v1/"},
             {"10 Top rated movies" : "/api/v1/top/"},
+            {"all Movies" : "/api/v1/movies/"},
+            {"all series" : "/api/v1/series/"},
             {"Movie detail" : "/api/v1/movie-detail/<film id or name>/"},
+            {"series detail" : "/api/v1/series-detail/<film id or name>/"},
         ]
         return Response(api_list, status=status.HTTP_200_OK)
 
