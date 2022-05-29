@@ -26,7 +26,6 @@ class FilmDetail(DetailView):
     def get_object(self, *args, **kwargs):
         object = get_object_or_404(Film,token=self.kwargs['token'])
         ip_address = self.request.user.ip_address
-        print(object.views.all())
         if ip_address not in object.views.all():
             object.views.add(ip_address)
         return object
