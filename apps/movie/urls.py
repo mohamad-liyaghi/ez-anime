@@ -1,9 +1,13 @@
 from django.urls import path
-from movie.views import (HomePage, 
+from .views.film_views import (
     AddMovie, UpdateMovie,
      AddFilmCast,UpdateSeries,
-      AddSeries, AddSeason, FilterGenre,
-       FilmDetail, SeasonDetail,SearchFilm)
+      AddSeries, AddSeason,
+       FilmDetail, SeasonDetail)
+
+from .views.other_views import (
+        HomePage, SearchFilm, FilterGenre
+)
 
 app_name = "movie"
 
