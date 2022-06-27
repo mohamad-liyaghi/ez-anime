@@ -113,28 +113,22 @@ class AddFilmCast(FormView):
     form_class = CastForm
     @transaction.atomic
     def form_valid(self, form,**kwargs):
-        director_field = self.request.POST["director_field"]
-        actor1_field = self.request.POST["actor1_field"]
-        actor2_field = self.request.POST["actor2_field"]
-        actor3_field = self.request.POST["actor3_field"]
-        actor4_field = self.request.POST["actor4_field"]
-        genre_field = self.request.POST["genre"]
-        film_model = Film.objects.filter(token=self.kwargs['token'])
-        genres = Genre.objects.filter(title=genre_field)
-        director_cast = Cast.objects.filter(full_name=director_field)
-        for film in film_model:
-            global movie_genre
-            for movie_genre in genres:
-                film.genre.add(movie_genre)
-                movie_genre.films_related.add(film)
-            AddActor(actor1_field,film)
-            AddActor(actor2_field,film)
-            AddActor(actor3_field,film)
-            AddActor(actor4_field,film)
-            for director in director_cast:
-                film.director.add(director)
-                director.works.add(film)
+        film_model = Film.objects.filter(token=self.kwargs['token']).first()
+        genres = Genre.objects.filter(title= self.request.POST["genre"]).first()
+        director = Cast.objects.filter(full_name= self.request.POST["director_field"]).first()
+
+        film_model.genre.add(genres)
+        genres.films_related.add(film_model)
+        film_model.director.add(director)
+        director.works.add(film_model)
+
+        AddActor(self.request.POST["actor1_field"], film_model)
+        AddActor(self.request.POST["actor2_field"], film_model)
+        AddActor(self.request.POST["actor3_field"], film_model)
+        AddActor(self.request.POST["actor4_field"], film_model)
+
         return redirect('movie:add-season', token=self.kwargs['token'])
+
     def form_invalid(self,form):
         print(form.errors)
 
