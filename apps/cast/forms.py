@@ -5,7 +5,7 @@ from .models import Genre,Cast
 class GenreForm(ModelForm):
     class Meta:
         model = Genre
-        fields = ('title','films_related')
+        fields = ('title',)
 
 class CastForm(ModelForm):
     class Meta:

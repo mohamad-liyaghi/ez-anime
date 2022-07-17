@@ -118,7 +118,6 @@ class AddFilmCast(FormView):
         director = Cast.objects.filter(full_name= self.request.POST["director_field"]).first()
 
         film_model.genre.add(genres)
-        genres.films_related.add(film_model)
         film_model.director.add(director)
         director.works.add(film_model)
 
