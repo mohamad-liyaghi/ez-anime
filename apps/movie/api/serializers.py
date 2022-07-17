@@ -26,7 +26,7 @@ class ItemListSerializer(TopFilmSerializer):
 
     class Meta:
         model = Film
-        fields = TopFilmSerializer.Meta.fields + ["seosons"]
+        fields = TopFilmSerializer.Meta.fields + ["seasons"]
 
 
 
@@ -52,5 +52,5 @@ class SeriesDetailSerializer(MovieDetailSerializer):
     seoson_story = serializers.StringRelatedField(read_only=True, many=True)
     class Meta:
         model = Film
-        fields = MovieDetailSerializer.Meta.fields +  ["seosons", "seoson_story"]
+        fields = MovieDetailSerializer.Meta.fields +  ["seasons"]
         

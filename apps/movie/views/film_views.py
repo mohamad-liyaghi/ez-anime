@@ -87,7 +87,7 @@ class UpdateSeries(LoginRequiredMixin, UpdateView):
         This page let admins to update series
     '''
     template_name = "movie/update-series.html"
-    fields = "picture", "name", "intro", "imdb", "seosons", "release_date", "token"
+    fields = "picture", "name", "intro", "imdb", "release_date", "token"
     success_url = "/"
 
     def get_object(self):

@@ -8,9 +8,7 @@ class Film(models.Model):
     picture = models.ImageField(upload_to="Movie-images")
     name = models.CharField(max_length=20)
     intro = models.TextField()
-    seoson_story = models.ManyToManyField("season",blank=True)
     imdb = models.PositiveIntegerField(default=0)
-    seosons = models.PositiveIntegerField(default=0,blank=True)
     actors= models.ManyToManyField(Cast, related_name='movie_actor',blank=True)
     director= models.ManyToManyField(Cast, related_name='movie_director',blank=True)
     genre= models.ManyToManyField(Genre, related_name='movie_genre', blank=True)
@@ -25,7 +23,7 @@ class Film(models.Model):
 
 class season(models.Model):
     season_number = models.PositiveIntegerField(default=1)
-    for_film = models.ManyToManyField("Film",blank=True)
+    for_film = models.ManyToManyField("Film",blank=True, related_name="seasons")
     story = models.TextField(null=True,blank=True)
     token = models.CharField(max_length=10, blank=True)
     def __str__(self) -> str:

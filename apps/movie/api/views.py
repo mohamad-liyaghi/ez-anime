@@ -44,7 +44,7 @@ class SeriesApiPage(ListAPIView):
     '''
     allowed_methods = ('GET',)
     serializer_class = ItemListSerializer
-    queryset = Film.objects.filter(~Q(seosons=0))
+    queryset = Film.objects.filter(~Q(seasons=0))
 
 
 class MovieApiPage(ListAPIView):
@@ -53,7 +53,7 @@ class MovieApiPage(ListAPIView):
     '''
     allowed_methods = ('GET',)
     serializer_class = ItemListSerializer
-    queryset = Film.objects.filter(Q(seosons=0))
+    queryset = Film.objects.filter(Q(seasons=0))
 
 
 @api_view(['GET'])
@@ -64,7 +64,7 @@ def MovieDetail(request, id):
     '''
 
     object = get_object_or_404(Film,Q(name=id)| Q(token= id))
-    if object.seosons == 0:
+    if object.seasons == 0:
         serializer = MovieDetailSerializer(object)
         return Response(serializer.data)
     else:
@@ -80,7 +80,7 @@ def SeriesDetail(request, id):
     '''
 
     object = get_object_or_404(Film,Q(name=id)| Q(token= id))
-    if object.seosons != 0:
+    if object.seasons != 0:
         serializer = SeriesDetailSerializer(object)
         return Response(serializer.data)
     else:

@@ -13,7 +13,7 @@ class SeriesForm(ModelForm):
     class Meta:
         model  = Film
         fields = (
-            "picture","name","intro","imdb","seosons","release_date","token"
+            "picture","name","intro","imdb","release_date","token"
         )
 class CastForm(forms.Form):
     director_field = forms.CharField(required=False)
