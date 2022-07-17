@@ -24,7 +24,7 @@
                         <h3>Biography</h3>
                         <p style="color: white;">{{object.biography}}</p>
                         <h3>Works</h3>
-                        {%for work in object.works.all %}
+                        {%for work in object.movie_actor.all %}
                             <a href="{%url 'movie:film-detail' work.token%}">{{work}} | </a>
                         {%endfor%}
                         {%if request.user.is_authenticated%}

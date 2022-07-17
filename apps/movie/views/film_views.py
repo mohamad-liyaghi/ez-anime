@@ -103,7 +103,6 @@ def AddActor(full_name, film):
     '''
     for actor in Cast.objects.filter(full_name=full_name):
         film.actors.add(actor)
-        actor.works.add(film)
 
 class AddFilmCast(FormView):
     '''
@@ -119,7 +118,6 @@ class AddFilmCast(FormView):
 
         film_model.genre.add(genres)
         film_model.director.add(director)
-        director.works.add(film_model)
 
         AddActor(self.request.POST["actor1_field"], film_model)
         AddActor(self.request.POST["actor2_field"], film_model)

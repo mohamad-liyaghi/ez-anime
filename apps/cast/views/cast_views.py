@@ -16,7 +16,6 @@ class CastProfile(DetailView):
     def get_object(self, **kwarg):
         return get_object_or_404(Cast, token=self.kwargs['token'])
 
-
 class AddCast(LoginRequiredMixin, FormView):
     template_name = "cast/add-cast.html"
     form_class = CastForm
