@@ -6,7 +6,7 @@ import uuid
 
 from cast.models import Cast, Genre
 from movie.models import Film, season
-from movie.forms import MovieForm, CastForm, SeriesForm, AddSeason
+from movie.forms import MovieForm, CastForm, AddSeason
 
 
 
@@ -58,42 +58,11 @@ class UpdateMovie(LoginRequiredMixin,UpdateView):
     template_name = "movie/update-movie.html"
     fields = fields = "picture","name","intro","imdb","release_date","token"
     success_url ="/"
+    
     def get_object(self):
         return get_object_or_404(Film, token=self.kwargs['token'])
+
     def form_invalid(self,form):
-        print(form.errors)
-
-class AddSeries(LoginRequiredMixin, FormView):
-    '''
-        This page let admins to add series
-    '''
-    template_name = "movie/add-series.html"
-    form_class = SeriesForm
-
-    @transaction.atomic
-    def form_valid(self, form):
-        form = self.form_class(self.request.POST, self.request.FILES)
-        form = form.save(commit=False)
-        form.token = uuid.uuid4().hex.upper()[0:15]
-        form.save()
-        return redirect("movie:add-cast", token=form.token)
-
-    def form_invalid(self, form):
-        print(form.errors)
-
-
-class UpdateSeries(LoginRequiredMixin, UpdateView):
-    '''
-        This page let admins to update series
-    '''
-    template_name = "movie/update-series.html"
-    fields = "picture", "name", "intro", "imdb", "release_date", "token"
-    success_url = "/"
-
-    def get_object(self):
-        return get_object_or_404(Film, token=self.kwargs['token'])
-
-    def form_invalid(self, form):
         print(form.errors)
 
 
@@ -124,7 +93,7 @@ class AddFilmCast(FormView):
         AddActor(self.request.POST["actor3_field"], film_model)
         AddActor(self.request.POST["actor4_field"], film_model)
 
-        return redirect('movie:add-season', token=self.kwargs['token'])
+        return redirect('movie:film-detail', token=self.kwargs['token'])
 
     def form_invalid(self,form):
         print(form.errors)
@@ -139,7 +108,7 @@ class AddSeason(LoginRequiredMixin, FormView):
     @transaction.atomic
     def form_valid(self, form):
         form = form.save(commit=False)
-        form.token= token=uuid.uuid4().hex.upper()[0:10]
+        form.token= uuid.uuid4().hex.upper()[0:10]
         form.save()
         film_model = Film.objects.filter(token=self.kwargs['token'])
         for film in film_model:
