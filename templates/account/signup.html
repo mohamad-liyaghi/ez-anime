@@ -13,29 +13,15 @@
         <h3>Register</h3>
         <form method="post">{%csrf_token%}
             <div class="input__item">
-                <input type="text" name="username" placeholder="User name">
-                <span class="icon_profile"></span>
-            </div>
-            <div class="input__item">
-                <input type="text" name="first_name" placeholder="First name">
-                <span class="icon_profile"></span>
-            </div>
-            <div class="input__item">
-                <input type="text" name="last_name" placeholder="Last name">
-                <span class="icon_profile"></span>
-            </div>
-            <div class="input__item">
                 <input type="text" name="email" placeholder="Email address">
                 <span class="icon_profile"></span>
             </div>
+
             <div class="input__item">
-                <input name="password1" type="password" placeholder="Password">
+                <input name="password" type="password" placeholder="Password">
                 <span class="icon_lock"></span>
             </div>
-            <div class="input__item">
-                <input name="password2" type="password" placeholder="Confirm Password">
-                <span class="icon_lock"></span>
-            </div>
+
             <button type="submit" class="site-btn">Register</button>
         </form>
         <h5>Already have an account? <a href="{%url 'account_login'%}">Login!</a></h5>

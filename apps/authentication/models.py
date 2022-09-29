@@ -7,6 +7,7 @@ class UserManager(BaseUserManager):
 
     def create_user(self, email, password, **kwargs):
         email = self.normalize_email(email)
+        print("hello")
 
         user = self.model(email= email, is_active=True, **kwargs)
         user.set_password(password)

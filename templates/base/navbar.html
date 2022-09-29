@@ -35,7 +35,13 @@
                                 {%if request.user.is_authenticated%}
                                     <li><a href="{%url 'account_logout'%}">logout</a></li>
                                 {%else%}
-                                    <li><a href="{%url 'account_login'%}">Login</a></li>
+                                    <li><a href="#">Auth <span class="arrow_carrot-down"></span></a>
+                                        <ul class="dropdown">
+                                                <li><a href="{%url 'account_signup'%}">Register</a></li>
+                                                <li><a href="{%url 'account_login'%}">Login</a></li>
+                                        </ul>
+                                    </li>
+
                                 {%endif%}
                                 
                             </ul>
