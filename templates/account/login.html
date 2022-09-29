@@ -22,8 +22,17 @@
             </div>
             <button type="submit" class="site-btn">Login</button>
         </form>
-        <h5>No account? <a href="{%url 'account_signup'%}">Register now!</a></h5>
     {%endblock%}
+
+        {% block side %}
+                    <div class="login__register">
+                        <h3>Dont’t Have An Account?</h3>
+                        <a href="{% url 'account_signup'  %}" class="primary-btn">SignUp</a>
+                    </div>
+        {% endblock %}
     
 </body>
 </html>
+
+
+

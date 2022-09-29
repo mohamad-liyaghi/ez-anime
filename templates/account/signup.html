@@ -24,7 +24,13 @@
 
             <button type="submit" class="site-btn">Register</button>
         </form>
-        <h5>Already have an account? <a href="{%url 'account_login'%}">Login!</a></h5>
     {%endblock%}
+
+    {% block side %}
+                    <div class="login__register">
+                        <h3>Already Have an account?</h3>
+                        <a href="{% url 'account_login'  %}" class="primary-btn">Login</a>
+                    </div>
+        {% endblock %}
 </body>
 </html>
