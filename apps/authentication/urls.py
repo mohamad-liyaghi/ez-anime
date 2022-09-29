@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     Login, Logout, Register)
 
-app_name = "account"
+app_name = "authentication"
 
 urlpatterns = [
     path("login/",Login.as_view(),name="login"),

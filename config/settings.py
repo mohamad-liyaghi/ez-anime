@@ -28,8 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-LOGIN_URL = "account:login"
-LOGOUT_REDIRECT_URL = "account:login" 
+LOGIN_URL = "authentication:login"
+LOGOUT_REDIRECT_URL = "authentication:login"
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'star_ratings',
     'rest_framework',
-    'apps.account.apps.AccountConfig',
+    'apps.authentication.apps.AuthenticationConfig',
     'apps.cast.apps.CastConfig',
     'apps.movie.apps.MovieConfig',
     'django_cleanup.apps.CleanupConfig',
