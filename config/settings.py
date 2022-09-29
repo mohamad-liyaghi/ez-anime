@@ -28,8 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-LOGIN_URL = "authentication:login"
-LOGOUT_REDIRECT_URL = "authentication:login"
+LOGIN_URL = "account_login"
+LOGOUT_REDIRECT_URL = "account_login"
+LOGIN_REDIRECT_URL  = "movie:home"
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,11 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'star_ratings',
     'rest_framework',
+    'allauth',
+    'allauth.account',
+
     'apps.authentication.apps.AuthenticationConfig',
     'apps.cast.apps.CastConfig',
     'apps.movie.apps.MovieConfig',
+
     'django_cleanup.apps.CleanupConfig',
 ]
 
@@ -145,3 +151,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STAR_RATINGS_ANONYMOUS = True
 
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend"
+)
+AUTH_USER_MODEL = "authentication.User"
+
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+
+ACCOUNT_FORMS = {'signup': 'apps.authentication.forms.RegisterUserForm'}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = "none"

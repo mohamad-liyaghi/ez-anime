@@ -5,25 +5,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{%block title%}Login Page{%endblock%}</title>
-    {%block page_title%}Login page{%endblock%}
+    <title>{%block title%}Register Page{%endblock%}</title>
+    {%block page_title%}Register page{%endblock%}
 </head>
 <body>
     {%block main%}
-        <h3>Login</h3>
+        <h3>Register</h3>
         <form method="post">{%csrf_token%}
             <div class="input__item">
-                <input name="username" type="text" placeholder="User Name">
+                <input type="text" name="email" placeholder="Email address">
                 <span class="icon_profile"></span>
             </div>
+
             <div class="input__item">
                 <input name="password" type="password" placeholder="Password">
                 <span class="icon_lock"></span>
             </div>
-            <button type="submit" class="site-btn">Login</button>
+
+            <button type="submit" class="site-btn">Register</button>
         </form>
-        <h5>No account? <a href="{%url 'account:register'%}">Register now!</a></h5>
     {%endblock%}
-    
+
+    {% block side %}
+                    <div class="login__register">
+                        <h3>Already Have an account?</h3>
+                        <a href="{% url 'account_login'  %}" class="primary-btn">Login</a>
+                    </div>
+        {% endblock %}
 </body>
 </html>
