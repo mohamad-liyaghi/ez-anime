@@ -13,7 +13,7 @@
         <h3>Login</h3>
         <form method="post">{%csrf_token%}
             <div class="input__item">
-                <input name="username" type="text" placeholder="User Name">
+                <input name="login" type="email" placeholder="Email">
                 <span class="icon_profile"></span>
             </div>
             <div class="input__item">
@@ -22,7 +22,7 @@
             </div>
             <button type="submit" class="site-btn">Login</button>
         </form>
-        <h5>No account? <a href="{%url 'account:register'%}">Register now!</a></h5>
+        <h5>No account? <a href="{%url 'account_signup'%}">Register now!</a></h5>
     {%endblock%}
     
 </body>

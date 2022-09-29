@@ -15,9 +15,9 @@
                         <ul>
                             <li class="active"><a href="{%url 'movie:home'%}">Homepage</a></li>
                             {%if request.user.is_authenticated%}
-                                    <li><a href="{%url 'account:logout'%}">logout</a></li>
+                                    <li><a href="{%url 'account_logout'%}">logout</a></li>
                                 {%else%}
-                                    <li><a href="{%url 'account:login'%}">Login</a></li>
+                                    <li><a href="{%url 'account_login'%}">Login</a></li>
                                 {%endif%}
                         </ul>
                     </div>
