@@ -4,20 +4,20 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 import uuid
 
-from cast.models import Cast
-from cast.forms import CastForm
+from element.models import Cast
+from element.forms import CastForm
 
 
 # Create your views here.
 
 class CastProfile(DetailView):
-    template_name = "cast/cast-profile.html"
+    template_name = "element/element-profile.html"
 
     def get_object(self, **kwarg):
         return get_object_or_404(Cast, token=self.kwargs['token'])
 
 class AddCast(LoginRequiredMixin, FormView):
-    template_name = "cast/add-cast.html"
+    template_name = "element/add-element.html"
     form_class = CastForm
 
     def form_valid(self, form):
@@ -28,11 +28,11 @@ class AddCast(LoginRequiredMixin, FormView):
         return redirect("movie:home")
 
     def form_invalid(self, form):
-        return redirect("cast:add-cast")
+        return redirect("element:add-element")
 
 
 class UpdateCast(LoginRequiredMixin, UpdateView):
-    template_name = "cast/update-cast.html"
+    template_name = "element/update-element.html"
     fields = "__all__"
     success_url = "/"
 

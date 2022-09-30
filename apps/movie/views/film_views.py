@@ -4,7 +4,7 @@ from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 
-from cast.models import Cast, Genre
+from element.models import Cast, Genre
 from movie.models import Film, season
 from movie.forms import MovieForm, CastForm, AddSeason
 
@@ -46,7 +46,7 @@ class AddMovie(LoginRequiredMixin, FormView):
         form = form.save(commit=False)
         form.token = uuid.uuid4().hex.upper()[0:15]
         form.save()
-        return redirect("movie:add-cast", token=form.token)
+        return redirect("movie:add-element", token=form.token)
 
     def form_invalid(self, form):
         print(form.errors)
@@ -77,7 +77,7 @@ class AddFilmCast(FormView):
     '''
         Admins can add extra Actors/directors to the series they have created
     '''
-    template_name = "movie/add-cast.html"
+    template_name = "movie/add-element.html"
     form_class = CastForm
     @transaction.atomic
     def form_valid(self, form,**kwargs):

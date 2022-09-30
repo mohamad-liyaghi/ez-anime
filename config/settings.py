@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
 
     'apps.authentication.apps.AuthenticationConfig',
-    'apps.cast.apps.CastConfig',
+    'apps.element.apps.ElementConfig',
     'apps.movie.apps.MovieConfig',
 
     'django_cleanup.apps.CleanupConfig',

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import  ListView
 
 
-from cast.models import Cast, Genre
+from element.models import Cast, Genre
 from movie.models import Film, season
 
 

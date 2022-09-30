@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericRelation
 from star_ratings.models import Rating
-from cast.models import Cast,Genre
+from element.models import Cast,Genre
 # Create your models here.
 
 class Film(models.Model):
