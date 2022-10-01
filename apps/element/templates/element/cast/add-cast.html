@@ -1,4 +1,4 @@
-{%extends 'cast/base-cast.html'%}
+{%extends 'element/base-element.html'%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,36 +9,24 @@
    {%block page_title%}Add Cast{%endblock%}
 </head>
 <body>
-    {%block main%}
-    <form method="post" enctype="multipart/form-data">{%csrf_token%}
-    <section class="signup spad">
-        <div class="container">
-            <div class="row">
-                <div class="login__form">
-                        <div class="input__item">
-                            <input name="full_name" type="text" placeholder="Full Name" maxlength="20" style="width: 10cm; height: 1.5cm;">
-                        </div><br>
-                        {{form.role}}
-                </div>
-                <div class="col-lg-6">
-                    <div class="login__social__links">
-                        {{form.avatar}}<br><br>
-                        <div class="input__item">
-                            <input name="biography" type="text" placeholder="Short biography" style="width: 10cm; height: 4cm;">
-                        </div>
-                        <div class="input__item">
-                            <input name="birthday" type="text" placeholder="birthday date" style="width: 10cm; height: 1.5cm;">
-                        </div>
-                        <br><button type="submit" class="site-btn">Submit</button>
-                    </div>
-                
-                </div>
-            </div>  
-        </div>
-            </div>
 
-        </div>
-    </form>
-    {%endblock%}
+
+        {%block main%}
+                            <div class="input__item">
+                                <input name="full_name" type="text" placeholder="Full Name" maxlength="20" style="width: 10cm; height: 1.5cm;">
+                            </div><br>
+                            {{form.role}}<br><br>
+                            {{form.avatar}}<br><br>
+        {%endblock%}
+
+        {% block side %}
+            <div class="input__item">
+                <input name="biography" type="text" placeholder="Short biography" style="width: 10cm; height: 4cm;">
+            </div>
+            <div class="input__item">
+                <input name="birthday" type="date" placeholder="birthday date" style="width: 10cm; height: 1.5cm;">
+            </div>
+            <br><button type="submit" class="site-btn">Submit</button>
+        {% endblock %}
 </body>
 </html>

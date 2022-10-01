@@ -1,0 +1,38 @@
+{%extends 'element/base-element.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Profile page{%endblock%}</title>
+   {%block page_title%}profile page{%endblock%}
+</head>
+<body>
+    {%block main%}
+
+    <img src="{{object.avatar.url}}" alt="avatar">
+    <br><br>
+    <h3>{{object.full_name}}</h3>
+    <p style="color: white;">Birth date: {{object.birthday}}</p>
+
+    {%endblock%}
+
+    {% block side %}
+        <h3 style="color:white;">Biography</h3>
+        <p style="color: white;">{{object.biography}}</p>
+
+        <h3 style="color:white;">Works</h3>
+
+        {%for work in object.movie_actor.all %}
+            <a href="{%url 'movie:film-detail' work.token%}">{{work}} | </a>
+        {% empty %}
+            <p style="color:white;">EMPTY</p>
+        {%endfor%}
+
+        {%if request.user.is_authenticated%}
+            <a href="{%url 'element:update-cast' object.token%}" class="site-btn">Update</a>
+        {%endif%}
+    {% endblock %}
+</body>
+</html>

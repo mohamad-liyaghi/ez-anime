@@ -7,17 +7,18 @@ import uuid
 from element.models import Cast
 from element.forms import CastForm
 
-
-# Create your views here.
-
 class CastProfile(DetailView):
-    template_name = "element/element-profile.html"
+    '''Cast Profile page'''
+    template_name = "element/cast/cast-profile.html"
 
     def get_object(self, **kwarg):
         return get_object_or_404(Cast, token=self.kwargs['token'])
 
+
 class AddCast(LoginRequiredMixin, FormView):
-    template_name = "element/add-element.html"
+    '''Add actor or Director to database'''
+
+    template_name = "element/cast/add-cast.html"
     form_class = CastForm
 
     def form_valid(self, form):
@@ -28,13 +29,16 @@ class AddCast(LoginRequiredMixin, FormView):
         return redirect("movie:home")
 
     def form_invalid(self, form):
-        return redirect("element:add-element")
+        return redirect("element:add-cast")
 
 
 class UpdateCast(LoginRequiredMixin, UpdateView):
-    template_name = "element/update-element.html"
-    fields = "__all__"
+    '''Update a cast information'''
+
+    template_name = "element/cast/update-cast.html"
+    fields = ["full_name", 'biography', 'birthday', 'role', 'avatar']
     success_url = "/"
 
     def get_object(self):
         return get_object_or_404(Cast, token=self.kwargs['token'])
+

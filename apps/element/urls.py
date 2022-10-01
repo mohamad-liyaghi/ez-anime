@@ -6,7 +6,7 @@ app_name = "element"
 
 urlpatterns = [
     path("add-genre/",AddGenre.as_view(),name="add-genre"),
-    path("add-element/",AddCast.as_view(),name="add-element"),
-    path("update-element/<str:token>/",UpdateCast.as_view(),name="update-element"),
-    path("profile/<str:token>/",CastProfile.as_view(),name="profile")
+    path("add-cast/",AddCast.as_view(),name="add-cast"),
+    path("update-cast/<str:token>/",UpdateCast.as_view(),name="update-cast"),
+    path("cast-profile/<str:token>/",CastProfile.as_view(),name="profile")
 ]
