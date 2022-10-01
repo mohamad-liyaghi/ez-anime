@@ -1,6 +1,6 @@
 from django.urls import path
-from .views.cast_views import AddCast, UpdateCast, CastProfile
-from .views.genre_views import  AddGenre
+from .views.cast import AddCast, UpdateCast, CastProfile
+from .views.genre import  AddGenre
 
 app_name = "element"
 
