@@ -3,15 +3,21 @@ from django.views.generic import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from element.forms import GenreForm
+from element.models import Genre
 
-
-# Create your views here.
 
 class AddGenre(LoginRequiredMixin, FormView):
-    template_name = "element/add-genre.html"
+    '''Add a genre to db'''
+
+    template_name = "element/genre/add-genre.html"
     form_class = GenreForm
 
     def form_valid(self, form):
+        title = form.cleaned_data.get("title")
+
+        if Genre.objects.filter(title=title).exists():
+            return redirect("movie:home")
+
         form.save()
         return redirect("movie:home")
 
