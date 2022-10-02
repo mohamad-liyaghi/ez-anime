@@ -1,11 +1,11 @@
 from django.urls import path
-from .views.film_views import (
+from .views.film import (
     AddMovie, UpdateMovie,
      AddFilmCast,
        AddSeason,
        FilmDetail, SeasonDetail)
 
-from .views.other_views import (
+from .views.core import (
         HomePage, SearchFilm, FilterGenre
 )
 
