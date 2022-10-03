@@ -21,13 +21,16 @@ class Film(models.Model):
     
         
 
-class season(models.Model):
-    season_number = models.PositiveIntegerField(default=1)
-    for_film = models.ManyToManyField("Film",blank=True, related_name="seasons")
+class Season(models.Model):
+    '''Season model for series'''
+
+    number = models.PositiveIntegerField(default=1)
+    film = models.ForeignKey("Film", blank=True, on_delete=models.CASCADE, related_name="seasons")
     story = models.TextField(null=True,blank=True)
     token = models.CharField(max_length=10, blank=True)
+
     def __str__(self) -> str:
-        return f'{self.season_number} | {self.for_film.first()}'
+        return f'{str(self.number)} | {self.film}'
 
 
 class View(models.Model):

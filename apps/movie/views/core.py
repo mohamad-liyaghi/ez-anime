@@ -3,7 +3,7 @@ from django.views.generic import  ListView
 
 
 from element.models import Cast, Genre
-from movie.models import Film, season
+from movie.models import Film
 
 
 # Create your views here.

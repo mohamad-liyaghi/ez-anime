@@ -1,0 +1,28 @@
+{%extends 'movie/base-movie.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Add Season{%endblock%}</title>
+   {%block page_title%}Add Season{%endblock%}
+
+</head>
+<body>
+    <form method="post">{%csrf_token%}
+        {%block main%}
+            <h3>Number of season</h3>
+            <div class="input__item">
+                <input name="number" type="number" placeholder="Season Number" maxlength="2", style="width: 10cm; height: 1.3cm;">
+            </div>
+        {%endblock%}
+
+        {% block side %}
+            <h3>Story</h3>
+            {{form.story}} <br>
+            <br><button type="submit" class="site-btn">Submit</button>
+        {%endblock%}
+    </form>
+</body>
+</html>

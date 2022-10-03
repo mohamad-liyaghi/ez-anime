@@ -2,11 +2,12 @@ from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import FormView, DetailView, UpdateView
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 import uuid
 
 from element.models import Cast, Genre
-from movie.models import Film, season
-from movie.forms import MovieForm, CastForm, AddSeason
+from movie.models import Film
+from movie.forms import MovieForm, CastForm
 
 
 class AddMovie(LoginRequiredMixin, FormView):
@@ -24,7 +25,6 @@ class AddMovie(LoginRequiredMixin, FormView):
         # check if film does not exist
         if Film.objects.filter(name= form.name,
                                release_date=form.release_date).exists():
-            print("wtf dude")
             return redirect("movie:home")
 
         # assign a new token
@@ -50,14 +50,7 @@ class FilmDetail(DetailView):
         return object
 
 
-class SeasonDetail(DetailView):
-    '''
-        Season detail shows extra info about a series season
-    '''
-    template_name = "movie/season-detail.html"
-    def get_object(self, *args, **kwargs):
-        object = get_object_or_404(season,token=self.kwargs['token'])
-        return object
+
 
 
 class UpdateMovie(LoginRequiredMixin,UpdateView):
@@ -108,22 +101,5 @@ class AddFilmCast(FormView):
         print(form.errors)
 
 
-class AddSeason(LoginRequiredMixin, FormView):
-    '''
-        Add seasons for series they've created
-    '''
-    template_name = "movie/add-season.html"
-    form_class = AddSeason
-    @transaction.atomic
-    def form_valid(self, form):
-        form = form.save(commit=False)
-        form.token= uuid.uuid4().hex.upper()[0:10]
-        form.save()
-        film_model = Film.objects.filter(token=self.kwargs['token'])
-        for film in film_model:
-            form.for_film.add(film)
-            film.seoson_story.add(form)
-        return redirect('movie:home')
-    def form_invalid(self, form):
-        print(form.errors)
+
 
