@@ -3,12 +3,11 @@ from django.forms import ModelForm
 from movie.models import Film, season
 
 class MovieForm(ModelForm):
+    '''A form for creating Movies'''
+
     class Meta:
         model  = Film
-        fields = ("picture","name","intro","imdb","actors","director",
-                "genre",
-                "release_date",
-                "token")
+        fields = ["name", "picture", "intro", "imdb", "release_date"]
 
 class CastForm(forms.Form):
     director_field = forms.CharField(required=False)

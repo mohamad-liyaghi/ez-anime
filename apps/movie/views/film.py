@@ -9,6 +9,33 @@ from movie.models import Film, season
 from movie.forms import MovieForm, CastForm, AddSeason
 
 
+class AddMovie(LoginRequiredMixin, FormView):
+    '''Create a new film'''
+
+    template_name = "movie/add-movie.html"
+    form_class = MovieForm
+
+    @transaction.atomic
+    def form_valid(self, form):
+        form = self.form_class(self.request.POST, self.request.FILES)
+
+        form = form.save(commit=False)
+
+        # check if film does not exist
+        if Film.objects.filter(name= form.name,
+                               release_date=form.release_date).exists():
+            print("wtf dude")
+            return redirect("movie:home")
+
+        # assign a new token
+        form.token = uuid.uuid4().hex.upper()[0:15]
+
+        form.save()
+        return redirect("movie:movie-detail", token=form.token)
+
+    def form_invalid(self, form):
+        return redirect("movie:home")
+
 
 class FilmDetail(DetailView):
     '''
@@ -32,24 +59,6 @@ class SeasonDetail(DetailView):
         object = get_object_or_404(season,token=self.kwargs['token'])
         return object
 
-
-class AddMovie(LoginRequiredMixin, FormView):
-    '''
-        This class let admins to add items
-    '''
-    template_name = "movie/add-movie.html"
-    form_class = MovieForm
-
-    @transaction.atomic
-    def form_valid(self, form):
-        form = self.form_class(self.request.POST, self.request.FILES)
-        form = form.save(commit=False)
-        form.token = uuid.uuid4().hex.upper()[0:15]
-        form.save()
-        return redirect("movie:add-element", token=form.token)
-
-    def form_invalid(self, form):
-        print(form.errors)
 
 class UpdateMovie(LoginRequiredMixin,UpdateView):
     '''
