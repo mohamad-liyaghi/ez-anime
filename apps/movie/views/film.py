@@ -7,7 +7,7 @@ import uuid
 
 from element.models import Cast, Genre
 from movie.models import Film
-from movie.forms import MovieForm, CastForm
+from movie.forms import MovieForm
 
 
 class AddMovie(LoginRequiredMixin, FormView):
@@ -66,40 +66,4 @@ class UpdateMovie(LoginRequiredMixin,UpdateView):
 
     def form_invalid(self,form):
         print(form.errors)
-
-
-def AddActor(full_name, film):
-    '''
-        This func is for AddFilmCast class, admins can add director and actors to the movies
-    '''
-    for actor in Cast.objects.filter(full_name=full_name):
-        film.actors.add(actor)
-
-class AddFilmCast(FormView):
-    '''
-        Admins can add extra Actors/directors to the series they have created
-    '''
-    template_name = "movie/add-element.html"
-    form_class = CastForm
-    @transaction.atomic
-    def form_valid(self, form,**kwargs):
-        film_model = Film.objects.filter(token=self.kwargs['token']).first()
-        genres = Genre.objects.filter(title= self.request.POST["genre"]).first()
-        director = Cast.objects.filter(full_name= self.request.POST["director_field"]).first()
-
-        film_model.genre.add(genres)
-        film_model.director.add(director)
-
-        AddActor(self.request.POST["actor1_field"], film_model)
-        AddActor(self.request.POST["actor2_field"], film_model)
-        AddActor(self.request.POST["actor3_field"], film_model)
-        AddActor(self.request.POST["actor4_field"], film_model)
-
-        return redirect('movie:film-detail', token=self.kwargs['token'])
-
-    def form_invalid(self,form):
-        print(form.errors)
-
-
-
 

@@ -1,0 +1,34 @@
+{%extends 'element/base-element.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Add Actor{%endblock%}</title>
+   {%block page_title%}Add Actor{%endblock%}
+</head>
+<body>
+
+
+        {%block main%}
+                            <div class="input__item">
+                                    <select name="actor" required="" id="id_acctor" style="width:300px;">
+                                        <option>
+                                            {% for actor in form.actor %}
+                                                {{ actor }}
+                                            {% endfor %}
+                                        </option>
+                                    </select>
+                            </div><br>
+
+                    <br><button type="submit" class="site-btn">Submit</button>
+        {%endblock%}
+
+
+        {% block side %}
+            <h3 style="color:white;">Actor Not Listed?</h3> <br>
+            <a href="{% url 'element:add-cast' %}" class="site-btn">Add Actor</a>
+        {% endblock %}
+</body>
+</html>

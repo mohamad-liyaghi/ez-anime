@@ -5,7 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 
 from element.models import Cast
-from element.forms import CastForm
+from movie.models import Film
+
+from element.forms import CastForm, MovieActorForm
 
 class CastProfile(DetailView):
     '''Cast Profile page'''
@@ -42,3 +44,28 @@ class UpdateCast(LoginRequiredMixin, UpdateView):
     def get_object(self):
         return get_object_or_404(Cast, token=self.kwargs['token'])
 
+
+class AddActorToMovie(LoginRequiredMixin, FormView):
+    '''Add Actor for a movie'''
+
+    form_class = MovieActorForm
+    template_name = "element/cast/add-actor-to-film.html"
+
+    def form_valid(self, form):
+        print(form.cleaned_data["actor"])
+
+        film = get_object_or_404(Film,
+                                 token=self.kwargs["token"])
+
+        actor = get_object_or_404(Cast, full_name= form.cleaned_data["actor"],
+                                  role="a")
+
+        if not actor in film.actors.all():
+            film.actors.add(actor)
+            return redirect("movie:movie-detail", token=film.token)
+
+        return redirect("movie:movie-detail", token=film.token)
+
+
+    def form_invalid(self, form):
+        return redirect("movie:home")

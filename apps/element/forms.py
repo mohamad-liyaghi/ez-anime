@@ -12,3 +12,9 @@ class CastForm(ModelForm):
         model = Cast
         fields = ("avatar","full_name","biography","birthday","role")
 
+
+class MovieActorForm(ModelForm):
+    actor = forms.ModelChoiceField(queryset= Cast.objects.filter(role="a"))
+    class Meta:
+        model =  Cast
+        fields = ["actor"]
