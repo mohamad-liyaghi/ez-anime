@@ -61,14 +61,27 @@ class AddActorToMovie(LoginRequiredMixin, FormView):
 
         if not actor in film.actors.all():
             film.actors.add(actor)
-            return redirect("movie:movie-detail", token=film.token)
+            return redirect("movie:film-detail", token=film.token)
 
-        return redirect("movie:movie-detail", token=film.token)
+        return redirect("movie:film-detail", token=film.token)
 
 
     def form_invalid(self, form):
         return redirect("movie:home")
 
+def remove_actor_from_movie(request, film, actor):
+    # remove an actor from actors list
+    if request.method == "GET" and request.user.is_authenticated:
+
+        film = get_object_or_404(Film, token=film)
+        actor = get_object_or_404(Cast, token=actor)
+
+        if actor in film.actors.all():
+            film.actors.remove(actor)
+            return redirect("movie:film-detail", token=film.token)
+        return redirect("movie:film-detail", token=film.token)
+
+    return redirect("movie:film-detail", token=film.token)
 
 class AddDirectorToMovie(LoginRequiredMixin, FormView):
     '''Add Director for a movie'''
@@ -86,9 +99,9 @@ class AddDirectorToMovie(LoginRequiredMixin, FormView):
 
         if not director in film.director.all():
             film.director.add(director)
-            return redirect("movie:movie-detail", token=film.token)
+            return redirect("movie:film-detail", token=film.token)
 
-        return redirect("movie:movie-detail", token=film.token)
+        return redirect("movie:film-detail", token=film.token)
 
 
     def form_invalid(self, form):
