@@ -65,6 +65,7 @@
                                 {%if request.user.is_authenticated%}
                                     <div class="anime__details__btn">
                                         <a href="{%url 'movie:update-movie' object.token%}" class="follow-btn">Update</a>
+                                        <a href="{%url 'movie:delete-movie' object.token%}" class="follow-btn">Delete</a>
                                         <a href="{%url 'movie:add-season' object.token%}" class="follow-btn">Add Season</a>
                                         <a href="{%url 'element:add-actor-to-movie' object.token%}" class="follow-btn">Add Actor</a>
                                         <a href="{%url 'element:add-director-to-movie' object.token%}" class="follow-btn">Add Director</a>

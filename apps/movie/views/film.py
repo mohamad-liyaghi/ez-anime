@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import FormView, DetailView, UpdateView
+from django.views.generic import FormView, DetailView, UpdateView, DeleteView
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -63,4 +63,14 @@ class UpdateMovie(LoginRequiredMixin,UpdateView):
 
     def form_invalid(self,form):
         return redirect("movie:film-detail", self.get_object().token)
+
+
+class DeleteMovie(LoginRequiredMixin, DeleteView):
+    '''Delete a Movie'''
+
+    template_name = "movie/movie/delete-movie.html"
+    success_url = "/"
+
+    def get_object(self):
+        return get_object_or_404(Film, token=self.kwargs["token"])
 
