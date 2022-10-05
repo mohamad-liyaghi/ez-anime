@@ -7,7 +7,7 @@ from .views.core import (
         HomePage, SearchFilm, FilterGenre
 )
 
-from .views.season import AddSeason, SeasonDetail
+from .views.season import AddSeason, SeasonDetail, DeleteSeason
 
 app_name = "movie"
 
@@ -20,6 +20,8 @@ urlpatterns = [
     path("update-movie/<str:token>/", UpdateMovie.as_view(), name="update-movie"),
     path("delete-movie/<str:token>/", DeleteMovie.as_view(), name="delete-movie"),
     path("add-season/<str:token>/", AddSeason.as_view(), name="add-season"),
+    path("delete-season/<str:token>/", DeleteSeason.as_view(), name="delete-season"),
+
     path("search/<str:name>/", SearchFilm.as_view(), name="search-film"),
     path("filter-genre/<str:genre>/", FilterGenre.as_view(), name="filter-genre"),
 ]
