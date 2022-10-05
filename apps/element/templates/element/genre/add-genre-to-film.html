@@ -1,0 +1,32 @@
+{%extends 'element/base-element.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Add Genre{%endblock%}</title>
+   {%block page_title%}Add Genre{%endblock%}
+</head>
+<body>
+        {%block main%}
+                            <div class="input__item">
+                                    <select name="genre" required="" id="id_genre" style="width:300px;">
+                                        <option>
+                                            {% for genre in form.genre %}
+                                                {{ genre }}
+                                            {% endfor %}
+                                        </option>
+                                    </select>
+                            </div><br>
+
+                    <br><button type="submit" class="site-btn">Submit</button>
+        {%endblock%}
+
+
+        {% block side %}
+            <h3 style="color:white;">Genre Not Listed?</h3> <br>
+            <a href="{% url 'element:add-genre' %}" class="site-btn">Add Genre</a>
+        {% endblock %}
+</body>
+</html>

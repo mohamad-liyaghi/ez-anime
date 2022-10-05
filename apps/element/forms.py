@@ -26,3 +26,11 @@ class MovieDirectorForm(ModelForm):
     class Meta:
         model =  Cast
         fields = ["director"]
+
+
+class MovieGenreForm(ModelForm):
+    genre = forms.ModelChoiceField(queryset= Genre.objects.all())
+
+    class Meta:
+        model = Genre
+        fields = ["genre"]
