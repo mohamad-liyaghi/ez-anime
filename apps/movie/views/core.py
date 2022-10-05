@@ -46,7 +46,7 @@ class FilterGenre(ListView):
     '''
         Filter movies by genre
     '''
-    template_name = 'movie/filter-film.html'
+    template_name = 'movie/movie/filter-film.html'
 
     def get_queryset(self):
         print(self.kwargs['genre'])

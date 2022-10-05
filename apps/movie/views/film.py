@@ -2,7 +2,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import FormView, DetailView, UpdateView
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.urls import reverse_lazy
 import uuid
 
 from element.models import Cast, Genre
@@ -13,7 +13,7 @@ from movie.forms import MovieForm
 class AddMovie(LoginRequiredMixin, FormView):
     '''Create a new film'''
 
-    template_name = "movie/add-movie.html"
+    template_name = "movie/movie/add-movie.html"
     form_class = MovieForm
 
     @transaction.atomic
@@ -31,7 +31,7 @@ class AddMovie(LoginRequiredMixin, FormView):
         form.token = uuid.uuid4().hex.upper()[0:15]
 
         form.save()
-        return redirect("movie:movie-detail", token=form.token)
+        return redirect("movie:film-detail", token=form.token)
 
     def form_invalid(self, form):
         return redirect("movie:home")
@@ -50,20 +50,17 @@ class FilmDetail(DetailView):
         return object
 
 
-
-
-
 class UpdateMovie(LoginRequiredMixin,UpdateView):
-    '''
-        This item let admins to update movies
-    '''
-    template_name = "movie/update-movie.html"
-    fields = fields = "picture","name","intro","imdb","release_date","token"
-    success_url ="/"
-    
+    '''Update A Movie'''
+    template_name = "movie/movie/update-movie.html"
+    fields = fields = "picture", "name", "intro", "imdb", "release_date"
+
     def get_object(self):
         return get_object_or_404(Film, token=self.kwargs['token'])
 
+    def get_success_url(self):
+        return reverse_lazy("movie:film-detail", kwargs={ "token": self.get_object().token })
+
     def form_invalid(self,form):
-        print(form.errors)
+        return redirect("movie:film-detail", self.get_object().token)
 

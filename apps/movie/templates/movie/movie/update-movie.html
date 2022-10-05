@@ -9,47 +9,37 @@
    {%block page_title%}Update Movie{%endblock%}
 </head>
 <body>
+<form method="post" enctype="multipart/form-data">{%csrf_token%}
     {%block main%}
-    <section class="signup spad">
-        <div class="container">
-            <div class="row">
-                <div class="login__form">
-                    <form method="post" enctype="multipart/form-data">{%csrf_token%}
-                        <h3>General info</h3>
-                        <div class="input__item">
-                            <input name="name" type="text" value="{{form.name.value}}" placeholder="Name" maxlength="20">
-                        </div>
-                        <div class="input__item">
-                            <input name="intro" type="text" value="{{form.intro.value}}" placeholder="Tell us a short intro..." maxlength="50">
-                        </div>
-                        <div class="input__item">
-                            <input name="imdb" type="number" value="{{form.imdb.value}}" placeholder="imdb" maxlength="2">
-                        </div>
-  
-                    </div>
-                <div class="col-lg-6">
-                    <div class="login__social__links">
-                        <h3>other info</h3>
-                        <label style="color: white;" for="picture">Picture</label>
-                        <div class="input__item">
-                            <input name="picture" type="file" value="{{form.picture.value}}" >
-                        </div>  <br>
-                        <div class="input__item">
-                            <input name="release_date" type="date" placeholder="release date" value="{{form.release_date.value}}" style="width: 10cm; height: 1.3cm;" maxlength="20">
-                        </div>
-                        <div class="input__item">
-                            <input name="token"  value="{{form.token.value}}" type="text"  style="width: 10cm; height: 1.3cm;" maxlength="20">
-                        </div>
-                        <br><br><button type="submit" class="site-btn">Submit</button>
-                    </div>
-                </form>
-                </div>
-            </div>  
-        </div>
+            <div class="input__item">
+                <input name="name" type="text" value="{{form.name.value}}" placeholder="Name" style="width: 10cm; height: 1.3cm;" maxlength="20">
             </div>
 
-        </div>
-    
-    {%endblock%}
+            <div class="input__item">
+                <input name="intro" type="text" value="{{form.intro.value}}" placeholder="Tell us a short intro..." style="width: 10cm; height: 1.3cm;" maxlength="50">
+            </div>
+
+            <div class="input__item">
+                <input name="imdb" type="number" value="{{form.imdb.value}}" placeholder="imdb" style="width: 10cm; height: 1.3cm;" maxlength="2">
+            </div>
+            {%endblock%}
+
+            {% block side %}
+                    <label style="color: white;" for="picture">Picture</label>
+                    <div class="input__item">
+                        <input name="picture" type="file" value="{{form.picture.value}}" >
+                    </div>  <br>
+                    <div class="input__item">
+                        <input name="release_date" type="date" placeholder="release date" value="{{ form.release_date.value }}" style="width: 10cm; height: 1.3cm;" maxlength="20">
+                    </div>
+                    <div class="input__item">
+                        <input name="token"  value="{{form.token.value}}" type="text"  style="width: 10cm; height: 1.3cm;" maxlength="20">
+                    </div>
+                    <br><br><button type="submit" class="site-btn">Submit</button>
+                </div>
+            {%endblock%}
+
+
+    </form>
 </body>
 </html>
