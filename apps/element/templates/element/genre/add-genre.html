@@ -1,0 +1,24 @@
+{%extends 'element/base-element.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Add genre{%endblock%}</title>
+   {%block page_title%}Add category{%endblock%}
+</head>
+<body>
+    <form method="post">{%csrf_token%}
+        {%block main%}
+            <div class="input__item">
+                <input name="title" type="text" placeholder="Title" maxlength="20" style="width: 10cm; height: 1.5cm;">
+            </div>
+        {%endblock%}
+
+        {% block side %}
+            <button type="submit" class="site-btn">Add Genre</button>
+        {%endblock%}
+    </form>
+</body>
+</html>

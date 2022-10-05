@@ -1,0 +1,26 @@
+{%extends 'movie/base-movie.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Season detail{%endblock%}</title>
+   {%block page_title%}Season {{object.number}} of {{object.film}}{%endblock%}
+</head>
+<body>
+    {%block main%}
+        <h5 style="color:white">
+            {{ object.story }}
+        </h5>
+    {%endblock%}
+
+    {% block side %}
+            <a  href="{%url 'movie:film-detail' object.film.token%}" class="site-btn">Back</a>
+            <a  href="{%url 'movie:home'%}" class="site-btn">Home</a>
+            {% if request.user.is_authenticated %}
+                <br><br><a  href="{%url 'movie:delete-season' object.token%}" class="site-btn">Delete Season</a>
+            {% endif %}
+    {% endblock %}
+</body>
+</html>

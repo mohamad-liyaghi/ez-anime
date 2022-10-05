@@ -1,0 +1,32 @@
+{%extends 'element/base-element.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Add cast{%endblock%}</title>
+   {%block page_title%}Add Cast{%endblock%}
+</head>
+<body>
+
+
+        {%block main%}
+                            <div class="input__item">
+                                <input name="full_name" type="text" placeholder="Full Name" maxlength="20" style="width: 10cm; height: 1.5cm;">
+                            </div><br>
+                            {{form.role}}<br><br>
+                            {{form.avatar}}<br><br>
+        {%endblock%}
+
+        {% block side %}
+            <div class="input__item">
+                <input name="biography" type="text" placeholder="Short biography" style="width: 10cm; height: 4cm;">
+            </div>
+            <div class="input__item">
+                <input name="birthday" type="date" placeholder="birthday date" style="width: 10cm; height: 1.5cm;">
+            </div>
+            <br><button type="submit" class="site-btn">Submit</button>
+        {% endblock %}
+</body>
+</html>

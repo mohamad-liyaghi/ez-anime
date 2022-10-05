@@ -3,7 +3,7 @@ from django.views.generic import  ListView
 
 
 from element.models import Cast, Genre
-from movie.models import Film, season
+from movie.models import Film
 
 
 # Create your views here.
@@ -46,7 +46,7 @@ class FilterGenre(ListView):
     '''
         Filter movies by genre
     '''
-    template_name = 'movie/filter-film.html'
+    template_name = 'movie/movie/filter-film.html'
 
     def get_queryset(self):
         print(self.kwargs['genre'])

@@ -1,0 +1,24 @@
+{%extends 'movie/base-movie.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Delete Movie{%endblock%}</title>
+   {%block page_title%}Delete Movie{%endblock%}
+</head>
+<body>
+<form method="post" enctype="multipart/form-data">{%csrf_token%}
+    {%block main%}
+          <h3 style="color:white;">Are  you sure you wanna delete {{ object.name }}??</h3>
+    {%endblock%}
+
+    {% block side %}
+      <a href="{% url 'movie:film-detail' object.token %}" class="site-btn">No, return to detail page</a> <br><br>
+      <button type="submit" class="site-btn">Delete</button>
+    {%endblock%}
+
+    </form>
+</body>
+</html>

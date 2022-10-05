@@ -1,0 +1,44 @@
+{%extends 'element/base-element.html'%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Update cast{%endblock%}</title>
+   {%block page_title%}Update Cast{%endblock%}
+</head>
+
+<body>
+
+    {%block main%}
+
+        <div class="input__item">
+            <input name="full_name" type="text" placeholder="Full Name" value="{{form.full_name.value}}" maxlength="20">
+        </div><br>
+        {{form.role}}<br><br>
+        {{form.avatar}}<br><br>
+    <style>
+        input{
+            width: 10cm; height: 1.5cm;
+        }
+    </style>
+    {%endblock%}
+
+    {% block side %}
+                        <div class="input__item">
+                            <input name="biography" type="text" placeholder="Short biography" value="{{form.biography.value}}">
+                        </div>
+
+                        <br>
+
+                        <div class="input__item">
+                            <input name="birthday" type="date" placeholder="birthday date" value="{{form.birthday.value}}" >
+                        </div>
+
+                        <br><button type="submit" class="site-btn">Submit</button>
+    {%endblock%}
+
+</body>
+</html>

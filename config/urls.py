@@ -23,10 +23,10 @@ urlpatterns = [
     path("auth/",include("allauth.urls")),
     path("element/",include("apps.element.urls")),
     path("",include("apps.movie.urls")),
-    path("api/v1/",include("apps.movie.api.urls")),
+    path("api/v1/",include("apps.api.urls")),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler404 = 'apps.movie.views.other_views.handler404'
-handler500 = 'apps.movie.views.other_views.handler500'
+handler404 = 'apps.movie.views.core.handler404'
+handler500 = 'apps.movie.views.core.handler500'

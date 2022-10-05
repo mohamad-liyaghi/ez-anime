@@ -117,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # rest framework  pagination
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'apps.movie.api.pagination.ApiResultPagination'
+    'DEFAULT_PAGINATION_CLASS': 'apps.api.pagination.ApiResultPagination'
 }
 
 # Internationalization
