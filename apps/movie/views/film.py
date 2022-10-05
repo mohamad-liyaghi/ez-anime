@@ -41,7 +41,7 @@ class FilmDetail(DetailView):
     '''
         Film detail shows extra info about the object such as seasons, actors ...
     '''
-    template_name = "base/movie-detail.html"
+    template_name = "movie/movie/movie-detail.html"
     def get_object(self, *args, **kwargs):
         object = get_object_or_404(Film,token=self.kwargs['token'])
         ip_address = self.request.user.ip_address
