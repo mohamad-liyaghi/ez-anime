@@ -42,10 +42,26 @@ class AddGenreToMovie(LoginRequiredMixin, FormView):
 
         if not genre in film.genre.all():
             film.genre.add(genre)
-            return redirect("movie:movie-detail", token=film.token)
+            return redirect("movie:film-detail", token=film.token)
 
-        return redirect("movie:movie-detail", token=film.token)
+        return redirect("movie:film-detail", token=film.token)
 
 
     def form_invalid(self, form):
         return redirect("movie:home")
+
+
+def remove_genre_from_movie(request, film, genre):
+    # remove genre from movie
+    if request.method == "GET" and request.user.is_authenticated:
+
+        film = get_object_or_404(Film, token=film)
+        genre = get_object_or_404(Genre, title=genre)
+
+        if genre in film.genre.all():
+            film.genre.remove(genre)
+            return redirect("movie:film-detail", token=film.token)
+
+        return redirect("movie:film-detail", token=film.token)
+
+    return redirect("movie:film-detail", token=film.token)
