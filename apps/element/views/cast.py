@@ -69,6 +69,7 @@ class AddActorToMovie(LoginRequiredMixin, FormView):
     def form_invalid(self, form):
         return redirect("movie:home")
 
+
 def remove_actor_from_movie(request, film, actor):
     # remove an actor from actors list
     if request.method == "GET" and request.user.is_authenticated:
@@ -78,6 +79,20 @@ def remove_actor_from_movie(request, film, actor):
 
         if actor in film.actors.all():
             film.actors.remove(actor)
+            return redirect("movie:film-detail", token=film.token)
+        return redirect("movie:film-detail", token=film.token)
+
+    return redirect("movie:film-detail", token=film.token)
+
+def remove_director_from_movie(request, film, director):
+    # remove an director from director list
+    if request.method == "GET" and request.user.is_authenticated:
+
+        film = get_object_or_404(Film, token=film)
+        director = get_object_or_404(Cast, token=director)
+
+        if director in film.director.all():
+            film.director.remove(director)
             return redirect("movie:film-detail", token=film.token)
         return redirect("movie:film-detail", token=film.token)
 

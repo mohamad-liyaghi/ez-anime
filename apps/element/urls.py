@@ -1,5 +1,5 @@
 from django.urls import path
-from .views.cast import AddCast, UpdateCast, CastProfile, AddActorToMovie, AddDirectorToMovie, remove_actor_from_movie
+from .views.cast import AddCast, UpdateCast, CastProfile, AddActorToMovie, AddDirectorToMovie, remove_actor_from_movie, remove_director_from_movie
 from .views.genre import  AddGenre, AddGenreToMovie, remove_genre_from_movie
 
 app_name = "element"
@@ -10,6 +10,7 @@ urlpatterns = [
     path('add-actor/<str:token>/', AddActorToMovie.as_view(), name="add-actor-to-movie"),
     path('add-director/<str:token>/', AddDirectorToMovie.as_view(), name="add-director-to-movie"),
     path('remove-actor/<str:film>/<str:actor>/', remove_actor_from_movie, name="remove-actor-from-movie"),
+    path('remove-director/<str:film>/<str:director>/', remove_director_from_movie, name="remove-director-from-movie"),
     path('remove-genre/<str:film>/<str:genre>/', remove_genre_from_movie, name="remove-genre-from-movie"),
 
 
