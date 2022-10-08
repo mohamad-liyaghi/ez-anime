@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import FormView, DetailView, UpdateView
+from django.views.generic import FormView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 import uuid
@@ -43,6 +43,16 @@ class UpdateCast(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return get_object_or_404(Cast, token=self.kwargs['token'])
+
+
+class DeleteCast(LoginRequiredMixin, DeleteView):
+    '''Delete a cast'''
+    template_name = "element/cast/delete-cast.html"
+    success_url = "/"
+
+    def get_object(self):
+        return get_object_or_404(Cast, token=self.kwargs["token"])
+
 
 
 class AddActorToMovie(LoginRequiredMixin, FormView):
@@ -121,3 +131,4 @@ class AddDirectorToMovie(LoginRequiredMixin, FormView):
 
     def form_invalid(self, form):
         return redirect("movie:home")
+

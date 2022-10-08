@@ -29,9 +29,12 @@
         {% empty %}
             <p style="color:white;">EMPTY</p>
         {%endfor%}
-
+        <br>
         {%if request.user.is_authenticated%}
+            <br>
             <a href="{%url 'element:update-cast' object.token%}" class="site-btn">Update</a>
+            <br> <br>
+            <a href="{%url 'element:delete-cast' object.token%}" class="site-btn">Delete</a>
         {%endif%}
     {% endblock %}
 </body>
