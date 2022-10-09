@@ -17,7 +17,7 @@
                             <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-8">
                                     <div class="section-title">
-                                        <h4>Recently added</h4>
+                                        <h4>Top Rated</h4>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4">
@@ -35,8 +35,7 @@
                                             </div>
                                             <div class="product__item__text">
                                                 <ul>
-                                                    <li>Active</li>
-                                                    {%if film.seasons.count == 0%}
+                                                    {%if not film.seasons.count %}
                                                         <li>Movie</li>
                                                     {%else%}
                                                         <li>Series</li>
@@ -54,12 +53,14 @@
                         <div class="product__sidebar">
                             <div class="product__sidebar__view">
                                 <div class="section-title">
-                                    <h5>Genres</h5>
+                                    <h5>Top Genres</h5>
                                 </div>
                                 {%for genre in genres%}
                                     <div class="filter__gallery">
                                         <div class="product__sidebar__view__item">
-                                        <div class="view"><a style="color: white;" href="{%url 'movie:filter-genre' genre.title%}">{{genre.title}}</a></div>
+                                        <div class="view">
+                                            <a style="color: white;" href="{%url 'movie:filter-genre' genre.title%}">{{genre.title}}</a>
+                                        </div>
                                         <div class="ep">Movies: {{genre.movie_genre.count}}</div>
                                         </div>
                                     </div>
@@ -69,7 +70,7 @@
         </div>
         <div class="product__sidebar__comment">
             <div class="section-title">
-                <h5>Top rated</h5>
+                <h5>Top Viewed Movies</h5>
             </div>
             {%for film in films %}
                 <div class="product__sidebar__comment__item">

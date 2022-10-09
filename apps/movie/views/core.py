@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import  ListView
-
+from django.db.models import Count
 
 from element.models import Cast, Genre
 from movie.models import Film
@@ -12,8 +12,9 @@ def HomePage(request):
     '''
         Home page includes List of recent movies, genres and top rated item
     '''
-    films = Film.objects.all().order_by('-ratings__average')
-    genre = Genre.objects.all()
+    films = Film.objects.all().order_by('-ratings__average')[:50]
+    genre = Genre.objects.annotate(films=Count('movie_genre')).order_by('-films')
+
     return render(request, "base/home.html", {"films": films, "genres": genre})
 
 

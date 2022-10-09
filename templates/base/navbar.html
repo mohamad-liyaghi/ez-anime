@@ -14,21 +14,12 @@
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li><a href="{%url 'movie:home'%}">Homepage</a></li>
-                                <li><a href="#">Pages <span class="arrow_carrot-down"></span></a>
-                                    <ul class="dropdown">
-                                        <li><a href="#">Categories</a></li>
-                                        {%if request.user.is_authenticated%}
-                                            <li><a href="{%url 'account_logout'%}">logout</a></li>
-                                        {%else%}
-                                            <li><a href="{%url 'account_login'%}">Login</a></li>
-                                        {%endif%}
-                                    </ul>
-                                </li>
                                 {%if request.user.is_authenticated%}
                                     <li><a href="#">Add <span class="arrow_carrot-down"></span></a>
                                         <ul class="dropdown">
                                             <li><a href="{%url 'movie:add-movie'%}">Movie</a></li>
-                                                
+                                            <li><a href="{%url 'element:add-cast'%}">Element</a></li>
+
                                         </ul>
                                     </li>
                                 {%endif%}
