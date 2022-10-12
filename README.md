@@ -1,37 +1,50 @@
-# ez-anime
-<h4>This project is an authoritative source for anime. </h4>
-<h4>only admins can login and add/update posts and users can rate the animes.</h4>
+# Introduction
+<p>Ez-anime is an authoritative source for anime using django framework.</p>
+<p>In this project admins can register/login and then they can add items. Items are ReadOnly for unregistered users. <br>
+This project contains 3 applications.</p>
+<hr>
+<ol>
+    <li>Authentication</li>
+    <li>Movie</li>
+    <li>Element</li>
+</ol>
+
+<hr>
+<h3>Authentication</h3>
+<p>As its obvious from its name, this app is for Registering, logging in and logging out users.</p>
+
+<hr>
+<h3>Movie</h3>
+<p>This app is for movie stuff. admins can add movie/series, add seasons, update and delete them.</p>
+
+<hr>
+<h3>Element</h3>
+<p>This app is for movie elements such as actors, directors, genres.</p>
+
 
 # How to use?
+
 ## Step 1 
-```
+
+```commandline
 $ git clone https://github.com/Ml06py/ez-anime.git
 ```
 
 ## Step 2
-```
+
+```commandline
 $ cd ez-anime
 ```
-## Step 3 
+
+## Step 3
+
+```commandline
+$ docker-compose up --build 
 ```
-$ pip install -r requirement.txt 
-```
-## Step 4
-```
-$ python manage.py makemigrations && pyton manage.py migrate
-```
-## Step 5
-```
-$ pyton manage.py createsuperuser
-```
-## Step 6
-```
-$ pyton manage.py runserver
-```
+
 <hr>
 <h1> Pics:</h1> 
-<img src="https://github.com/Ml06py/ez-anime/blob/main/shots/home.png" alt="home-pic">
-<img src="https://github.com/Ml06py/ez-anime/blob/main/shots/detail.png" alt="detail-pic">
+<img src="shots/home.png" alt="home-pic">
+<img src="shots/detail.png" alt="detail-pic">
 
 <a href="https://themewagon.com/themes/free-bootstrap-4-html5-gaming-anime-website-template-anime/">Template source</a>
-<h2>This project is unfinished, feel free to complete it ;)</h2>
