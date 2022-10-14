@@ -24,6 +24,7 @@ urlpatterns = [
     path("element/",include("apps.element.urls")),
     path("",include("apps.movie.urls")),
     path("api/v1/",include("apps.api.v1.urls")),
+    path("api/v2/",include("apps.api.v2.urls")),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
