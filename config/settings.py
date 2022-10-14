@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os,sys
+from datetime import timedelta
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
@@ -45,6 +47,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'allauth',
     'allauth.account',
+
+    'djoser',
 
     'apps.authentication.apps.AuthenticationConfig',
     'apps.element.apps.ElementConfig',
@@ -169,3 +173,10 @@ ACCOUNT_FORMS = {'signup': 'apps.authentication.forms.RegisterUserForm'}
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_VERIFICATION = "none"
+
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+    "ACCESS_TOKEN_LIFETIME" : timedelta(days=1),
+}
+
