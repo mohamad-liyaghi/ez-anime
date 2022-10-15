@@ -119,9 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # rest framework  pagination
-
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'apps.api.v1.pagination.ApiResultPagination'
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 40
 }
 
 # Internationalization
