@@ -2,7 +2,7 @@ from rest_framework.viewsets import ModelViewSet
 from movie.models import Film
 
 
-from .seializers.film import MovieListSerializer
+from .seializers.film import MovieListSerializer, CreateMovieSerializer
 from .permissions import MoviePermission
 
 class FilmViewSet(ModelViewSet):
@@ -14,6 +14,11 @@ class FilmViewSet(ModelViewSet):
         # find appropriate serializer
         if self.action == "list":
             return MovieListSerializer
+        
+        # serializer for create movie
+        elif self.action == "create":
+            return CreateMovieSerializer
+
 
     def get_queryset(self):
         return Film.objects.all() \

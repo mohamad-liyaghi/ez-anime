@@ -9,3 +9,9 @@ class MoviePermission(BasePermission):
         if request.method == "GET":
             return True
         
+        if request.method == "POST":
+            if request.user.is_authenticated:
+                return True
+
+            return False
+        
