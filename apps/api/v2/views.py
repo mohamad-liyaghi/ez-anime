@@ -20,7 +20,7 @@ class FilmViewSet(ModelViewSet):
         elif self.action == "create":
             return CreateMovieSerializer
 
-        elif self.action == "retrieve":
+        elif self.action in ["update", "partial_update", "delete", "retrieve", "metadata"]:
             return FilmDetailSerializer
 
     def get_queryset(self):

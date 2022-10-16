@@ -9,7 +9,7 @@ class MoviePermission(BasePermission):
         if request.method == "GET":
             return True
         
-        if request.method == "POST":
+        if request.method in ["POST", "PATCH", "PUT", "DELETE"]:
             if request.user.is_authenticated:
                 return True
 

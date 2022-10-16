@@ -39,7 +39,8 @@ class FilmDetailSerializer(serializers.ModelSerializer):
 
     actors = serializers.StringRelatedField(read_only=True, many=True)
     director = serializers.StringRelatedField(read_only=True, many=True)
-    genre = serializers.StringRelatedField(read_only=True, many=True)    
+    genre = serializers.StringRelatedField(read_only=True, many=True) 
+    token = serializers.CharField(read_only=True)   
     
     # add season here after creating season detail
 
