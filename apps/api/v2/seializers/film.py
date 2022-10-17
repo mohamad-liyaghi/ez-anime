@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from movie.models import Film
+from movie.models import Film, Season
 
 
 class MovieListSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class SeasonListSerializer(serializers.Serializer):
     number = serializers.IntegerField(read_only=True)
     token = serializers.CharField(read_only=True)
     # the dude that is related to detail page
-    
+
 
 
 
@@ -52,3 +52,11 @@ class FilmDetailSerializer(serializers.ModelSerializer):
             "actors", "director", "genre", "seasons"
         ]
 
+class AddSeasonSerializer(serializers.ModelSerializer):
+    '''Add a season for a film'''
+
+    token = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Season
+        fields = ["number", "story", "token"]

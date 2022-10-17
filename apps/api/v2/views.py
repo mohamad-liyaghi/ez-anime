@@ -2,11 +2,13 @@ from rest_framework.viewsets import ModelViewSet
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework import status
+
 
 from movie.models import Film
 
 
-from .seializers.film import MovieListSerializer, CreateMovieSerializer, FilmDetailSerializer, SeasonListSerializer
+from .seializers.film import AddSeasonSerializer, MovieListSerializer, CreateMovieSerializer, FilmDetailSerializer, SeasonListSerializer
 from .permissions import MoviePermission
 
 class FilmViewSet(ModelViewSet):
@@ -27,8 +29,11 @@ class FilmViewSet(ModelViewSet):
         elif self.action in ["update", "partial_update", "delete", "retrieve", "metadata"]:
             return FilmDetailSerializer
 
-        elif self.action == "get_season_list":
+        elif self.action == "get_season_list" and self.request.method == "GET":
             return SeasonListSerializer
+
+        elif self.action == "get_season_list" and self.request.method == "POST":
+            return AddSeasonSerializer
 
     def get_queryset(self):
         return Film.objects.all() \
@@ -39,8 +44,20 @@ class FilmViewSet(ModelViewSet):
     # list of seasons
     def get_season_list(self, request, token):
         if request.method == "GET":
-            
+
             film = get_object_or_404(Film, token=token)
             seasons = film.seasons.all()
             serializer = SeasonListSerializer(seasons, many=True)
             return Response(serializer.data)
+
+        if request.method == "POST":
+            # create a season
+            film = get_object_or_404(Film, token=token)
+            serializer = AddSeasonSerializer(data=request.data)    
+
+            if serializer.is_valid():
+                serializer.save(film=film)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+            return Response({"error" : "invalid information"}, status=status.HTTP_403_FORBIDDEN)
+
