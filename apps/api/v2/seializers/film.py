@@ -26,7 +26,9 @@ class SeasonListSerializer(serializers.Serializer):
 
     number = serializers.IntegerField(read_only=True)
     token = serializers.CharField(read_only=True)
-        
+    # the dude that is related to detail page
+    
+
 
 
 class FilmDetailSerializer(serializers.ModelSerializer):
@@ -49,3 +51,4 @@ class FilmDetailSerializer(serializers.ModelSerializer):
         fields = ["picture", "name", "intro", "imdb", "release_date", "token",
             "actors", "director", "genre", "seasons"
         ]
+
