@@ -38,6 +38,9 @@ class FilmViewSet(ModelViewSet):
 
         elif self.action == "season_detail" and self.request.method == 'GET':
             return SeasonDetailSerializer
+        
+        elif self.action == "season_detail" and self.request.method in ['PUT', 'PATCH']:
+            return AddSeasonSerializer
 
     def get_queryset(self):
         return Film.objects.all() \
@@ -66,7 +69,7 @@ class FilmViewSet(ModelViewSet):
             return Response({"error" : "invalid information"}, status=status.HTTP_403_FORBIDDEN)
 
 
-    @action(detail=False, methods=["GET"], url_path="(?P<film>[^/.]+)/seasons/(?P<season>[^/.]+)")
+    @action(detail=False, methods=["GET", "PATCH", "PUT", "DELETE"], url_path="(?P<film>[^/.]+)/seasons/(?P<season>[^/.]+)")
     # season detail
     def season_detail(self, request, film, season):
         if request.method == "GET":
@@ -78,3 +81,12 @@ class FilmViewSet(ModelViewSet):
             return Response(serializer.data)
 
 
+        if request.method in ["PUT", "PATCH"]:
+            # create a season
+            film = get_object_or_404(Film, token=film)
+            season = get_object_or_404(Season, film=film, token=season)
+            serializer = AddSeasonSerializer(season, data=request.data, partial=True)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
