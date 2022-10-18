@@ -5,10 +5,11 @@ from rest_framework.decorators import action
 from rest_framework import status
 
 
-from movie.models import Film
+from movie.models import Film, Season
 
 
-from .seializers.film import AddSeasonSerializer, MovieListSerializer, CreateMovieSerializer, FilmDetailSerializer, SeasonListSerializer
+from .seializers.film import (AddSeasonSerializer, MovieListSerializer, CreateMovieSerializer, FilmDetailSerializer,
+                                SeasonListSerializer, SeasonDetailSerializer)
 from .permissions import MoviePermission
 
 class FilmViewSet(ModelViewSet):
@@ -35,12 +36,15 @@ class FilmViewSet(ModelViewSet):
         elif self.action == "get_season_list" and self.request.method == "POST":
             return AddSeasonSerializer
 
+        elif self.action == "season_detail" and self.request.method == 'GET':
+            return SeasonDetailSerializer
+
     def get_queryset(self):
         return Film.objects.all() \
             .order_by('-ratings__average')
 
 
-    @action(detail=False, methods=["GET", "POST"], url_path="seasons/(?P<token>[^/.]+)")
+    @action(detail=False, methods=["GET", "POST"], url_path="(?P<token>[^/.]+)/seasons")
     # list of seasons
     def get_season_list(self, request, token):
         if request.method == "GET":
@@ -60,4 +64,17 @@ class FilmViewSet(ModelViewSet):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
 
             return Response({"error" : "invalid information"}, status=status.HTTP_403_FORBIDDEN)
+
+
+    @action(detail=False, methods=["GET"], url_path="(?P<film>[^/.]+)/seasons/(?P<season>[^/.]+)")
+    # season detail
+    def season_detail(self, request, film, season):
+        if request.method == "GET":
+
+            film = get_object_or_404(Film, token=film)
+            season = get_object_or_404(Season, film=film, token=season)
+
+            serializer = SeasonDetailSerializer(season)
+            return Response(serializer.data)
+
 

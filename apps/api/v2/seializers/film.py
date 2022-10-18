@@ -60,3 +60,13 @@ class AddSeasonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Season
         fields = ["number", "story", "token"]
+
+
+class SeasonDetailSerializer(serializers.ModelSerializer):
+    '''Detail Page of a season'''
+    
+    film = serializers.StringRelatedField()
+
+    class Meta:
+        model = Season
+        fields = ["number", "story", "token", "film"]
