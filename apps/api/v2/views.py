@@ -6,10 +6,15 @@ from rest_framework import status
 
 
 from movie.models import Film, Season
+from element.models import Cast
+
 
 
 from .seializers.film import (AddSeasonSerializer, MovieListSerializer, CreateMovieSerializer, FilmDetailSerializer,
                                 SeasonListSerializer, SeasonDetailSerializer)
+
+from .seializers.cast import (CastListSerializer)
+
 from .permissions import MoviePermission, CastPermission
 
 class FilmViewSet(ModelViewSet):
@@ -97,3 +102,10 @@ class CastViewSet(ModelViewSet):
     '''A viewset for cast (add/delete/update/retrieve etc.)'''
 
     permission_classes =[CastPermission,]
+    queryset = Cast.objects.all()
+
+
+    def get_serializer_class(self):
+        
+        if self.action == "list":
+            return CastListSerializer
