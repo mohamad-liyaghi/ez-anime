@@ -18,3 +18,9 @@ class CreateCastSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cast
         fields = ["avatar", "full_name", "role", "biography", "birthday", "token"]
+
+
+class CastDetailSerializer(CreateCastSerializer):
+    '''Detail page of an actor/director'''
+    lookup_field = 'token'
+    pass

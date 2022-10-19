@@ -13,7 +13,7 @@ from element.models import Cast
 from .seializers.film import (AddSeasonSerializer, MovieListSerializer, CreateMovieSerializer, FilmDetailSerializer,
                                 SeasonListSerializer, SeasonDetailSerializer)
 
-from .seializers.cast import (CastListSerializer, CreateCastSerializer)
+from .seializers.cast import (CastListSerializer, CreateCastSerializer, CastDetailSerializer)
 
 from .permissions import MoviePermission, CastPermission
 
@@ -105,6 +105,7 @@ class CastViewSet(ModelViewSet):
 
     permission_classes =[CastPermission,]
     queryset = Cast.objects.all()
+    lookup_field = 'token'
 
 
     def get_serializer_class(self):
@@ -114,3 +115,6 @@ class CastViewSet(ModelViewSet):
 
         elif self.action == "create":
             return CreateCastSerializer
+        
+        elif self.action in ["update", "partial_update", "delete", "retrieve", "metadata"]:
+            return CastDetailSerializer
