@@ -8,6 +8,7 @@ app_name = 'v2'
 router = routers.DefaultRouter()
 
 router.register('film', views.FilmViewSet, basename="film")
+router.register('cast', views.CastViewSet, basename="cast")
 
 
 urlpatterns = [

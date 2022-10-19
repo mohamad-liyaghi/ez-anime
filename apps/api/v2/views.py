@@ -10,7 +10,7 @@ from movie.models import Film, Season
 
 from .seializers.film import (AddSeasonSerializer, MovieListSerializer, CreateMovieSerializer, FilmDetailSerializer,
                                 SeasonListSerializer, SeasonDetailSerializer)
-from .permissions import MoviePermission
+from .permissions import MoviePermission, CastPermission
 
 class FilmViewSet(ModelViewSet):
     '''A Viewset for Get/Create/Update/Detail a movie'''
@@ -90,3 +90,10 @@ class FilmViewSet(ModelViewSet):
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
+class CastViewSet(ModelViewSet):
+    '''A viewset for cast (add/delete/update/retrieve etc.)'''
+
+    permission_classes =[CastPermission,]

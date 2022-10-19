@@ -15,3 +15,5 @@ class MoviePermission(BasePermission):
 
             return False
         
+class CastPermission(MoviePermission):
+    pass
