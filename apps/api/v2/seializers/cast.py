@@ -8,3 +8,13 @@ class CastListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cast
         fields = ["avatar", "full_name", "role", "token"]
+
+
+class CreateCastSerializer(serializers.ModelSerializer):
+    '''A serializer for creating Casts'''
+
+    token = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Cast
+        fields = ["avatar", "full_name", "role", "biography", "birthday", "token"]

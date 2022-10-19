@@ -13,9 +13,10 @@ from element.models import Cast
 from .seializers.film import (AddSeasonSerializer, MovieListSerializer, CreateMovieSerializer, FilmDetailSerializer,
                                 SeasonListSerializer, SeasonDetailSerializer)
 
-from .seializers.cast import (CastListSerializer)
+from .seializers.cast import (CastListSerializer, CreateCastSerializer)
 
 from .permissions import MoviePermission, CastPermission
+
 
 class FilmViewSet(ModelViewSet):
     '''A Viewset for Get/Create/Update/Detail a movie'''
@@ -74,6 +75,7 @@ class FilmViewSet(ModelViewSet):
             return Response({"error" : "invalid information"}, status=status.HTTP_403_FORBIDDEN)
 
 
+
     @action(detail=False, methods=["GET", "PATCH", "PUT", "DELETE"], url_path="(?P<film>[^/.]+)/seasons/(?P<season>[^/.]+)")
     # season detail
     def season_detail(self, request, film, season):
@@ -109,3 +111,6 @@ class CastViewSet(ModelViewSet):
         
         if self.action == "list":
             return CastListSerializer
+
+        elif self.action == "create":
+            return CreateCastSerializer
