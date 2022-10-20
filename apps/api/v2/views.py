@@ -13,7 +13,7 @@ from element.models import Cast
 from .seializers.film import (AddSeasonSerializer, MovieListSerializer, CreateMovieSerializer, FilmDetailSerializer,
                                 SeasonListSerializer, SeasonDetailSerializer)
 
-from .seializers.cast import (CastListSerializer, CreateCastSerializer, CastDetailSerializer)
+from .seializers.cast import (CastListSerializer, CreateCastSerializer, CastDetailSerializer, FilmCastSerializer)
 
 from .permissions import MoviePermission, CastPermission
 
@@ -118,6 +118,9 @@ class CastViewSet(ModelViewSet):
         
         elif self.action in ["update", "partial_update", "delete", "retrieve", "metadata"]:
             return CastDetailSerializer
+        
+        elif self.action == "film_cast":
+            return FilmCastSerializer
 
     @action(detail=False, methods=["GET", "POST", "DELETE"], url_path="film-cast/(?P<cast>[^/.]+)/(?P<film>[^/.]+)")
     def film_cast(self, request, cast, film):
@@ -147,3 +150,22 @@ class CastViewSet(ModelViewSet):
                     return Response({"success" : "{0} was saved as a director in {1}.".format(cast, film)})
 
                 return Response({"error" : "{0} is not saved as a director in {1}.".format(cast, film)})
+
+
+        elif request.method == "POST":
+            if cast.role == "a":
+
+                if cast in film.actors.all():
+                    return Response({"error" : "{0} is already saved as an actor in {1}.".format(cast, film)})
+
+                film.actors.add(cast)
+                return Response({"success" : "{0} saved as an actor in {1}.".format(cast, film)})
+
+
+            elif cast.role == "d":
+
+                if cast in film.director.all():
+                    return Response({"error" : "{0} is already saved as a director in {1}.".format(cast, film)})
+
+                film.director.add(cast)
+                return Response({"success" : "{0} saved as a director in {1}.".format(cast, film)})

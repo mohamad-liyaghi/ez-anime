@@ -30,4 +30,4 @@ class FilmCastSerializer(serializers.ModelSerializer):
     '''A serializer for retrieve or create a movie cast'''
     class Meta:
         model = Cast
-        fields = ["full_name", "token"]
+        fields = ["token"]
