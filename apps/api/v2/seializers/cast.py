@@ -24,3 +24,10 @@ class CastDetailSerializer(CreateCastSerializer):
     '''Detail page of an actor/director'''
     lookup_field = 'token'
     pass
+
+
+class FilmCastSerializer(serializers.ModelSerializer):
+    '''A serializer for retrieve or create a movie cast'''
+    class Meta:
+        model = Cast
+        fields = ["full_name", "token"]

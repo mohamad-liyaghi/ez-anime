@@ -118,3 +118,32 @@ class CastViewSet(ModelViewSet):
         
         elif self.action in ["update", "partial_update", "delete", "retrieve", "metadata"]:
             return CastDetailSerializer
+
+    @action(detail=False, methods=["GET", "POST", "DELETE"], url_path="film-cast/(?P<cast>[^/.]+)/(?P<film>[^/.]+)")
+    def film_cast(self, request, cast, film):
+        '''
+            GET: Check if cast is in casts list of a movie
+            POST: Add an actor or director
+            DELETE: Delete an actor or director from list
+        '''
+
+        cast = get_object_or_404(Cast, token=cast)
+        film = get_object_or_404(Film, token=film)
+
+
+        if request.method == "GET":
+
+            if cast.role == "a":
+
+                if cast in film.actors.all():
+                    return Response({"success" : "{0} was saved as an actor in {1}.".format(cast, film)})
+
+                return Response({"error" : "{0} is not saved as an actor in {1}.".format(cast, film)})
+
+
+            elif cast.role == "d":
+
+                if cast in film.director.all():
+                    return Response({"success" : "{0} was saved as a director in {1}.".format(cast, film)})
+
+                return Response({"error" : "{0} is not saved as a director in {1}.".format(cast, film)})
