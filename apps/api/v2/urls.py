@@ -9,6 +9,7 @@ router = routers.DefaultRouter()
 
 router.register('film', views.FilmViewSet, basename="film")
 router.register('cast', views.CastViewSet, basename="cast")
+router.register("genre", views.GenreViewSet, basename="genre")
 
 
 urlpatterns = [

@@ -15,7 +15,7 @@ from .seializers.film import (AddSeasonSerializer, MovieListSerializer, CreateMo
 
 from .seializers.cast import (CastListSerializer, CreateCastSerializer, CastDetailSerializer, FilmCastSerializer)
 
-from .permissions import MoviePermission, CastPermission
+from .permissions import GenrePermission, MoviePermission, CastPermission
 
 
 class FilmViewSet(ModelViewSet):
@@ -169,3 +169,11 @@ class CastViewSet(ModelViewSet):
 
                 film.director.add(cast)
                 return Response({"success" : "{0} saved as a director in {1}.".format(cast, film)})
+
+
+
+class GenreViewSet(ModelViewSet):
+    '''A ViewSet for genre purposes'''
+
+    permission_classes = [GenrePermission,]
+    

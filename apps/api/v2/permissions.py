@@ -17,3 +17,6 @@ class MoviePermission(BasePermission):
         
 class CastPermission(MoviePermission):
     pass
+
+class GenrePermission(MoviePermission):
+    pass
