@@ -14,7 +14,7 @@ from .seializers.film import (AddSeasonSerializer, MovieListSerializer, CreateMo
                                 SeasonListSerializer, SeasonDetailSerializer)
 
 from .seializers.cast import (CastListSerializer, CreateCastSerializer, CastDetailSerializer, FilmCastSerializer)
-from .seializers.genre import (GenreListSerializer)
+from .seializers.genre import (CreateGenreSerializer, GenreListSerializer)
 
 from .permissions import GenrePermission, MoviePermission, CastPermission
 
@@ -180,7 +180,11 @@ class GenreViewSet(ModelViewSet):
     queryset = Genre.objects.all()
 
     def get_serializer_class(self):
-        
+
         if self.action == "list":
             return GenreListSerializer
+
+        elif self.action == 'create':
+            return CreateGenreSerializer
+    
     

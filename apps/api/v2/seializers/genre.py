@@ -8,3 +8,8 @@ class GenreListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ["title"]
+
+
+class CreateGenreSerializer(GenreListSerializer):
+    '''A serializer for creating genre'''
+    pass
