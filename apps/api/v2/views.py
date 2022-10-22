@@ -14,7 +14,7 @@ from .seializers.film import (AddSeasonSerializer, MovieListSerializer, CreateMo
                                 SeasonListSerializer, SeasonDetailSerializer)
 
 from .seializers.cast import (CastListSerializer, CreateCastSerializer, CastDetailSerializer, FilmCastSerializer)
-from .seializers.genre import (CreateGenreSerializer, GenreDetailSerializer, GenreListSerializer)
+from .seializers.genre import (CreateGenreSerializer, FilmGenreSerializer, GenreDetailSerializer, GenreListSerializer)
 
 from .permissions import GenrePermission, MoviePermission, CastPermission
 
@@ -190,4 +190,23 @@ class GenreViewSet(ModelViewSet):
 
         elif self.action in ["update", "partial_update", "delete", "retrieve", "metadata"]:
             return GenreDetailSerializer
+
+        elif self.action == "movie_genre":
+            return FilmGenreSerializer
+        
+        
     
+
+    @action(detail=False, methods=["POST", "DELETE"], url_path="movie/(?P<genre>[^/.]+)/(?P<film>[^/.]+)")
+    def movie_genre(self, request, genre, film):
+        film = get_object_or_404(Film, token=film)
+        genre = get_object_or_404(Genre, title=genre)
+
+        if request.method == "POST":
+            movie_genre = film.genre.all()
+
+            if genre in movie_genre:
+                return Response({"error" : "genre already added"}, status=status.HTTP_403_FORBIDDEN)
+            
+            film.genre.add(genre)
+            return Response({"success" : "genre added to movie"}, status=status.HTTP_200_OK)

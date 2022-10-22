@@ -24,3 +24,12 @@ class GenreDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ["movie_genre"]
+
+
+class FilmGenreSerializer(serializers.ModelSerializer):
+    '''A serializer for retrieve or create a genre'''
+
+    title = serializers.CharField(read_only=True)
+    class Meta:
+        model = Genre
+        fields = ["title"]
