@@ -13,3 +13,14 @@ class GenreListSerializer(serializers.ModelSerializer):
 class CreateGenreSerializer(GenreListSerializer):
     '''A serializer for creating genre'''
     pass
+
+
+class GenreDetailSerializer(serializers.ModelSerializer):
+    '''show films with the same genre'''
+    lookup_field = 'title'
+
+    movie_genre = serializers.StringRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Genre
+        fields = ["movie_genre"]
