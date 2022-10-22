@@ -199,14 +199,25 @@ class GenreViewSet(ModelViewSet):
 
     @action(detail=False, methods=["POST", "DELETE"], url_path="movie/(?P<genre>[^/.]+)/(?P<film>[^/.]+)")
     def movie_genre(self, request, genre, film):
+
         film = get_object_or_404(Film, token=film)
         genre = get_object_or_404(Genre, title=genre)
 
+        movie_genre = film.genre.all()
+
         if request.method == "POST":
-            movie_genre = film.genre.all()
 
             if genre in movie_genre:
                 return Response({"error" : "genre already added"}, status=status.HTTP_403_FORBIDDEN)
             
             film.genre.add(genre)
             return Response({"success" : "genre added to movie"}, status=status.HTTP_200_OK)
+
+
+        elif request.method == "DELETE":
+
+            if genre in movie_genre:
+                film.genre.remove(genre)
+                return Response({"success" : "genre deleted"}, status=status.HTTP_200_OK)
+            
+            return Response({"error" : "genre does not exist"}, status=status.HTTP_403_FORBIDDEN)
