@@ -24,10 +24,10 @@ This project contains 3 applications.</p>
 
 # How to use?
 
-## Step 1 
+## Step 1
 
 ```commandline
-$ git clone https://github.com/Ml06py/ez-anime.git
+$ git clone https://github.com/mohamad-liyaghi/ez-anime.git
 ```
 
 ## Step 2
@@ -39,11 +39,11 @@ $ cd ez-anime
 ## Step 3
 
 ```commandline
-$ docker-compose up --build 
+$ docker-compose up --build
 ```
 
 <hr>
-<h1> Pics:</h1> 
+<h1> Pics:</h1>
 <img src="shots/home.png" alt="home-pic">
 <img src="shots/detail.png" alt="detail-pic">
 
